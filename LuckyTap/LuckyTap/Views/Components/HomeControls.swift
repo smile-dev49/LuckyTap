@@ -81,14 +81,14 @@ struct HomeShortcutItem: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 7) {
+            VStack(spacing: 6) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(red: 0.34, green: 0.18, blue: 0.58).opacity(0.9),
-                                    Color(red: 0.12, green: 0.06, blue: 0.28).opacity(0.95)
+                                    Color(red: 0.34, green: 0.18, blue: 0.58).opacity(0.92),
+                                    Color(red: 0.12, green: 0.06, blue: 0.28).opacity(0.96)
                                 ],
                                 startPoint: .top,
                                 endPoint: .bottom
@@ -109,21 +109,12 @@ struct HomeShortcutItem: View {
                             lineWidth: 1.6
                         )
 
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.white.opacity(0.2), .clear],
-                                startPoint: .top,
-                                endPoint: .center
-                            )
-                        )
-                        .padding(1)
-
+                    // Full-bleed icon filling the tile
                     Image(imageName)
                         .renderingMode(.original)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 44, height: 44)
+                        .padding(8)
                         .shadow(color: .black.opacity(0.35), radius: 3, y: 2)
                 }
                 .aspectRatio(1, contentMode: .fit)

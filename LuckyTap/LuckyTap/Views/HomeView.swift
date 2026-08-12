@@ -12,7 +12,6 @@ struct HomeView: View {
     @State private var appeared = false
     @State private var heroPulse = false
     @State private var playGlow = false
-    @State private var cloverSpin = false
     @State private var marqueeFlash = false
 
     var body: some View {
@@ -65,9 +64,6 @@ struct HomeView: View {
             withAnimation(.easeInOut(duration: 0.55).repeatForever(autoreverses: true)) {
                 marqueeFlash = true
             }
-            withAnimation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true)) {
-                cloverSpin = true
-            }
         }
     }
 
@@ -108,37 +104,13 @@ struct HomeView: View {
 
 
     private var logoBlock: some View {
-        VStack(spacing: -6) {
-            Text("Lucky")
-                .font(.system(size: 46, weight: .black, design: .rounded))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 1.0, green: 0.98, blue: 0.75),
-                            AppTheme.gold,
-                            Color(red: 1.0, green: 0.55, blue: 0.1)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .shadow(color: .black.opacity(0.55), radius: 2, y: 2)
-                .shadow(color: AppTheme.gold.opacity(0.55), radius: 12)
-
-            HStack(alignment: .center, spacing: 6) {
-                Text("Tap")
-                    .font(.system(size: 44, weight: .black, design: .rounded))
-                    .foregroundColor(.white)
-                    .shadow(color: AppTheme.neonBlue, radius: 10)
-                    .shadow(color: AppTheme.neonBlue.opacity(0.8), radius: 18)
-
-                Text("🍀")
-                    .font(.system(size: 30))
-                    .shadow(color: AppTheme.neonGreen.opacity(0.7), radius: 8)
-                    .rotationEffect(.degrees(cloverSpin ? 8 : -8))
-                    .scaleEffect(cloverSpin ? 1.1 : 0.95)
-            }
-        }
+        Image("BrandLogo")
+            .renderingMode(.original)
+            .resizable()
+            .scaledToFit()
+            .frame(maxWidth: 260)
+            .frame(height: 110)
+            .shadow(color: AppTheme.gold.opacity(0.35), radius: 12, y: 2)
     }
 
 

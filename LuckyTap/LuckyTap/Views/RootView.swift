@@ -72,19 +72,17 @@ struct RootView: View {
             }
 
             if showSplash {
-                SplashView()
-                    .transition(.opacity)
-                    .zIndex(50)
+                SplashView {
+                    withAnimation(.easeInOut(duration: 0.45)) {
+                        showSplash = false
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(50)
             }
         }
         .animation(.easeInOut(duration: 0.45), value: showSplash)
         .animation(.spring(response: 0.35), value: store.toast)
-        .task {
-            try? await Task.sleep(nanoseconds: 2_200_000_000)
-            withAnimation(.easeInOut(duration: 0.45)) {
-                showSplash = false
-            }
-        }
         .fullScreenCover(isPresented: $showGame) {
             GameView(onClose: { showGame = false })
                 .environmentObject(store)

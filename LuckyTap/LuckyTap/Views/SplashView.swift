@@ -1,11 +1,23 @@
 import SwiftUI
 
+/// Splash flow: App icon → Brand logo → loading progress → finish.
 struct SplashView: View {
-    @State private var logoScale: CGFloat = 0.82
-    @State private var logoOpacity: Double = 0
+    var onFinished: () -> Void
+
+    private enum Phase {
+        case appIcon
+        case brandLogo
+        case loading
+    }
+
+    @State private var phase: Phase = .appIcon
+    @State private var iconScale: CGFloat = 0.86
+    @State private var iconOpacity: Double = 0
+    @State private var brandScale: CGFloat = 0.88
+    @State private var brandOpacity: Double = 0
+    @State private var progress: Double = 0
     @State private var glowPulse = false
-    @State private var titleOffset: CGFloat = 16
-    @State private var sparkle = false
+    @State private var showProgress = false
 
     var body: some View {
         ZStack {
@@ -13,79 +25,130 @@ struct SplashView: View {
 
             Circle()
                 .fill(AppTheme.gold.opacity(0.12))
-                .frame(width: 260, height: 260)
-                .blur(radius: 50)
-                .offset(x: -90, y: -180)
-                .scaleEffect(glowPulse ? 1.08 : 0.92)
-
-            Circle()
-                .fill(AppTheme.neonBlue.opacity(0.14))
                 .frame(width: 280, height: 280)
                 .blur(radius: 55)
-                .offset(x: 100, y: 200)
-                .scaleEffect(glowPulse ? 0.95 : 1.1)
+                .offset(y: -40)
+                .scaleEffect(glowPulse ? 1.08 : 0.94)
 
-            VStack(spacing: 22) {
+            Circle()
+                .fill(AppTheme.neonBlue.opacity(0.12))
+                .frame(width: 260, height: 260)
+                .blur(radius: 50)
+                .offset(x: 80, y: 180)
+                .scaleEffect(glowPulse ? 0.95 : 1.08)
+
+            VStack(spacing: 28) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 36, style: .continuous)
-                        .fill(AppTheme.gold.opacity(0.18))
-                        .frame(width: 168, height: 168)
-                        .blur(radius: 18)
-                        .scaleEffect(glowPulse ? 1.12 : 0.95)
+                    // Phase 1: remote / app icon
+                    appIconBlock
+                        .opacity(phase == .appIcon ? iconOpacity : 0)
+                        .scaleEffect(phase == .appIcon ? iconScale : 0.9)
+                        .allowsHitTesting(false)
 
-                    Image("AppLogo")
+                    // Phase 2+: brand logo PNG
+                    Image("BrandLogo")
+                        .renderingMode(.original)
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 148, height: 148)
-                        .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 32, style: .continuous)
-                                .stroke(AppTheme.goldGradient, lineWidth: 3)
+                        .scaledToFit()
+                        .frame(maxWidth: 300)
+                        .shadow(color: AppTheme.gold.opacity(0.35), radius: 18)
+                        .opacity(brandOpacity)
+                        .scaleEffect(brandScale)
+                }
+                .frame(height: 280)
+
+                // Phase 3: load progress under logo
+                if showProgress {
+                    VStack(spacing: 10) {
+                        ProgressBarView(
+                            progress: progress,
+                            fill: AppTheme.gold,
+                            height: 12
                         )
-                        .shadow(color: AppTheme.gold.opacity(0.45), radius: 18, y: 8)
-                }
-                .scaleEffect(logoScale)
-                .opacity(logoOpacity)
+                        .frame(width: 210)
+                        .overlay(
+                            Capsule()
+                                .stroke(AppTheme.gold.opacity(0.45), lineWidth: 1)
+                        )
 
-                VStack(spacing: 6) {
-                    HStack(spacing: 8) {
-                        Text("Lucky")
-                            .foregroundStyle(AppTheme.goldGradient)
-                        Text("Tap")
-                            .foregroundColor(.white)
-                            .shadow(color: AppTheme.neonBlue.opacity(0.8), radius: 8)
-                        Text("🍀")
-                            .scaleEffect(sparkle ? 1.15 : 1.0)
+                        Text("LOADING \(Int(progress * 100))%")
+                            .font(.system(size: 12, weight: .heavy, design: .rounded))
+                            .tracking(1.5)
+                            .foregroundColor(AppTheme.gold.opacity(0.9))
                     }
-                    .font(.system(size: 40, weight: .black, design: .rounded))
-
-                    Text("555 SLOTS")
-                        .font(.system(size: 13, weight: .heavy, design: .rounded))
-                        .tracking(4)
-                        .foregroundColor(AppTheme.gold.opacity(0.85))
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
-                .offset(y: titleOffset)
-                .opacity(logoOpacity)
-
-                ProgressView()
-                    .tint(AppTheme.gold)
-                    .scaleEffect(1.1)
-                    .padding(.top, 8)
-                    .opacity(logoOpacity)
             }
+            .padding(.horizontal, 24)
         }
         .onAppear {
-            withAnimation(.spring(response: 0.7, dampingFraction: 0.72)) {
-                logoScale = 1
-                logoOpacity = 1
-                titleOffset = 0
-            }
             withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
                 glowPulse = true
             }
-            withAnimation(.easeInOut(duration: 0.7).repeatForever(autoreverses: true)) {
-                sparkle = true
+            runSequence()
+        }
+    }
+
+    private var appIconBlock: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 36, style: .continuous)
+                .fill(AppTheme.gold.opacity(0.18))
+                .frame(width: 170, height: 170)
+                .blur(radius: 16)
+                .scaleEffect(glowPulse ? 1.1 : 0.96)
+
+            Image("AppLogo")
+                .renderingMode(.original)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 148, height: 148)
+                .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 32, style: .continuous)
+                        .stroke(AppTheme.goldGradient, lineWidth: 3)
+                )
+                .shadow(color: AppTheme.gold.opacity(0.45), radius: 16, y: 6)
+        }
+    }
+
+    private func runSequence() {
+        Task { @MainActor in
+            // 1) Show app / remote icon
+            withAnimation(.spring(response: 0.65, dampingFraction: 0.75)) {
+                iconOpacity = 1
+                iconScale = 1
             }
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+
+            // 2) Fade icon out, show brand logo PNG
+            withAnimation(.easeInOut(duration: 0.35)) {
+                iconOpacity = 0
+                phase = .brandLogo
+            }
+            try? await Task.sleep(nanoseconds: 120_000_000)
+
+            withAnimation(.spring(response: 0.7, dampingFraction: 0.78)) {
+                brandOpacity = 1
+                brandScale = 1
+            }
+            try? await Task.sleep(nanoseconds: 650_000_000)
+
+            // 3) Progress bar under logo
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showProgress = true
+                phase = .loading
+            }
+
+            let steps = 28
+            for i in 1...steps {
+                try? await Task.sleep(nanoseconds: 45_000_000)
+                withAnimation(.linear(duration: 0.05)) {
+                    progress = Double(i) / Double(steps)
+                }
+            }
+
+            try? await Task.sleep(nanoseconds: 250_000_000)
+            onFinished()
         }
     }
 }
