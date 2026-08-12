@@ -29,7 +29,6 @@ enum SlotSymbol: String, CaseIterable, Codable, Identifiable, Hashable {
         }
     }
 
-    /// Relative weight for RNG (higher = more common). Five is rarer.
     var weight: Int {
         switch self {
         case .five: return 8
@@ -62,7 +61,6 @@ struct SpinResult: Equatable {
 }
 
 enum PayTable {
-    /// Max multiplier used for "WIN UP TO" banner.
     static let maxMultiplier: Double = 50
 
     static func evaluate(reels: [SlotSymbol], bet: Int) -> SpinResult {

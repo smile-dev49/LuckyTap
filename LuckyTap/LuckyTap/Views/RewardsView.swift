@@ -67,7 +67,6 @@ struct RewardsView: View {
             .opacity(store.canClaimDaily ? 1 : 0.55)
             .disabled(!store.canClaimDaily)
 
-            // Preview missions below as in design
             Text("Missions Preview")
                 .font(.system(size: 14, weight: .bold))
                 .foregroundColor(.white.opacity(0.75))

@@ -8,7 +8,6 @@ struct GameView: View {
         ZStack {
             AppTheme.backgroundGradient.ignoresSafeArea()
 
-            // Perspective floor vibe
             VStack {
                 Spacer()
                 LinearGradient(
@@ -114,7 +113,6 @@ struct GameView: View {
 
     private var controls: some View {
         HStack(alignment: .center, spacing: 12) {
-            // Bet
             VStack(spacing: 6) {
                 Text("BET")
                     .font(.system(size: 11, weight: .heavy))
@@ -130,7 +128,6 @@ struct GameView: View {
             }
             .frame(maxWidth: .infinity)
 
-            // TAP
             Button(action: { store.handleTap() }) {
                 ZStack {
                     Circle()
@@ -151,7 +148,6 @@ struct GameView: View {
             .buttonStyle(.plain)
             .frame(maxWidth: .infinity)
 
-            // Auto
             VStack(spacing: 6) {
                 Text("AUTO")
                     .font(.system(size: 11, weight: .heavy))
@@ -190,7 +186,6 @@ struct SlotMachinePanel: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             VStack(spacing: 10) {
-                // Marquee lights
                 HStack(spacing: 6) {
                     ForEach(0..<11, id: \.self) { i in
                         Circle()
@@ -228,7 +223,6 @@ struct SlotMachinePanel: View {
                     .stroke(AppTheme.goldGradient, lineWidth: 4)
             )
 
-            // Lever
             VStack(spacing: 0) {
                 Capsule()
                     .fill(AppTheme.goldGradient)

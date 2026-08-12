@@ -42,7 +42,6 @@ struct SpinWheelView: View {
                     .foregroundColor(.white.opacity(0.75))
 
                 ZStack {
-                    // Pointer
                     Image(systemName: "arrowtriangle.down.fill")
                         .foregroundColor(AppTheme.gold)
                         .font(.title)

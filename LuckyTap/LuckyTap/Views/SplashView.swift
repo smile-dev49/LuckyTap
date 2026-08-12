@@ -11,7 +11,6 @@ struct SplashView: View {
         ZStack {
             AppTheme.backgroundGradient.ignoresSafeArea()
 
-            // Ambient orbs
             Circle()
                 .fill(AppTheme.gold.opacity(0.12))
                 .frame(width: 260, height: 260)

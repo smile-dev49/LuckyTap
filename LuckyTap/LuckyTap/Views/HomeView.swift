@@ -16,45 +16,41 @@ struct HomeView: View {
     @State private var marqueeFlash = false
 
     var body: some View {
-        ZStack {
-            cityBackground
+        VStack(spacing: 0) {
+            topBar
+                .padding(.horizontal, 16)
+                .padding(.top, 4)
+                .opacity(appeared ? 1 : 0)
+                .offset(y: appeared ? 0 : -14)
 
-            VStack(spacing: 0) {
-                topBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 4)
-                    .opacity(appeared ? 1 : 0)
-                    .offset(y: appeared ? 0 : -14)
+            Spacer(minLength: 6)
 
-                Spacer(minLength: 6)
+            logoBlock
+                .opacity(appeared ? 1 : 0)
+                .scaleEffect(appeared ? 1 : 0.9)
 
-                logoBlock
-                    .opacity(appeared ? 1 : 0)
-                    .scaleEffect(appeared ? 1 : 0.9)
+            Spacer(minLength: 8)
 
-                Spacer(minLength: 8)
+            heroStage
+                .padding(.horizontal, 12)
+                .opacity(appeared ? 1 : 0)
+                .offset(y: appeared ? 0 : 18)
 
-                heroStage
-                    .padding(.horizontal, 12)
-                    .opacity(appeared ? 1 : 0)
-                    .offset(y: appeared ? 0 : 18)
+            Spacer(minLength: 12)
 
-                Spacer(minLength: 18)
+            playButton
+                .padding(.horizontal, 40)
+                .opacity(appeared ? 1 : 0)
+                .scaleEffect(appeared ? 1 : 0.88)
 
-                playButton
-                    .padding(.horizontal, 44)
-                    .opacity(appeared ? 1 : 0)
-                    .scaleEffect(appeared ? 1 : 0.88)
+            Spacer(minLength: 16)
 
-                Spacer(minLength: 18)
+            shortcutsRow
+                .padding(.horizontal, 14)
+                .opacity(appeared ? 1 : 0)
+                .offset(y: appeared ? 0 : 22)
 
-                shortcutsRow
-                    .padding(.horizontal, 12)
-                    .opacity(appeared ? 1 : 0)
-                    .offset(y: appeared ? 0 : 22)
-
-                Spacer(minLength: 96)
-            }
+            Spacer(minLength: 108)
         }
         .onAppear {
             withAnimation(.spring(response: 0.7, dampingFraction: 0.8)) {
@@ -75,51 +71,8 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Background
+    // Background is provided by RootView (CityBackgroundView)
 
-    private var cityBackground: some View {
-        GeometryReader { geo in
-            ZStack {
-                Image("HomeBackground")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .clipped()
-
-                // Smooth readability washes (no flat purple block)
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.05, green: 0.02, blue: 0.14).opacity(0.55),
-                        Color.clear,
-                        Color(red: 0.08, green: 0.03, blue: 0.18).opacity(0.35)
-                    ],
-                    startPoint: .top,
-                    endPoint: .center
-                )
-
-                LinearGradient(
-                    colors: [
-                        Color.clear,
-                        Color(red: 0.06, green: 0.02, blue: 0.16).opacity(0.72),
-                        Color(red: 0.04, green: 0.01, blue: 0.12).opacity(0.92)
-                    ],
-                    startPoint: .center,
-                    endPoint: .bottom
-                )
-
-                // Soft violet mist for blend
-                RadialGradient(
-                    colors: [Color(red: 0.45, green: 0.2, blue: 0.85).opacity(0.18), .clear],
-                    center: .top,
-                    startRadius: 20,
-                    endRadius: 320
-                )
-            }
-        }
-        .ignoresSafeArea()
-    }
-
-    // MARK: - Top
 
     private var topBar: some View {
         HStack {
@@ -153,7 +106,6 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Logo (stacked like design)
 
     private var logoBlock: some View {
         VStack(spacing: -6) {
@@ -189,11 +141,9 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Hero (marked area)
 
     private var heroStage: some View {
         ZStack {
-            // Outer neon frame
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .fill(Color(red: 0.08, green: 0.04, blue: 0.18).opacity(0.55))
                 .background(
@@ -219,7 +169,6 @@ struct HomeView: View {
                 .shadow(color: AppTheme.gold.opacity(heroPulse ? 0.55 : 0.25), radius: heroPulse ? 22 : 12, y: 4)
                 .shadow(color: Color.purple.opacity(0.45), radius: 16, y: 8)
 
-            // Marquee bulbs along top edge
             VStack {
                 HStack(spacing: 7) {
                     ForEach(0..<14, id: \.self) { i in
@@ -240,7 +189,6 @@ struct HomeView: View {
                 Spacer()
             }
 
-            // Hero artwork
             Image("HomeHero")
                 .resizable()
                 .scaledToFit()
@@ -249,7 +197,6 @@ struct HomeView: View {
                 .scaleEffect(heroPulse ? 1.02 : 1.0)
                 .shadow(color: AppTheme.neonBlue.opacity(0.35), radius: 12)
 
-            // Bottom jackpot ribbon
             VStack {
                 Spacer()
                 HStack(spacing: 8) {
@@ -273,108 +220,17 @@ struct HomeView: View {
         .frame(height: 230)
     }
 
-    // MARK: - PLAY
 
     private var playButton: some View {
-        Button(action: onPlay) {
-            ZStack {
-                Capsule()
-                    .fill(AppTheme.playGradient)
-                    .overlay(
-                        Capsule()
-                            .stroke(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.7), Color.white.opacity(0.15), AppTheme.gold],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                ),
-                                lineWidth: 2
-                            )
-                    )
-                    .shadow(color: Color(red: 1.0, green: 0.55, blue: 0.05).opacity(playGlow ? 0.85 : 0.45), radius: playGlow ? 22 : 12, y: 4)
-                    .shadow(color: AppTheme.gold.opacity(0.4), radius: 8, y: 2)
-
-                Capsule()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color.white.opacity(0.42), Color.white.opacity(0.05), .clear],
-                            startPoint: .top,
-                            endPoint: .center
-                        )
-                    )
-                    .padding(3)
-                    .allowsHitTesting(false)
-
-                Text("PLAY")
-                    .font(.system(size: 28, weight: .black, design: .rounded))
-                    .foregroundColor(.white)
-                    .shadow(color: .black.opacity(0.35), radius: 2, y: 1)
-                    .shadow(color: Color.orange.opacity(0.5), radius: 6)
-            }
-            .frame(height: 62)
-        }
-        .buttonStyle(PressableButtonStyle(scale: 0.95))
+        PlayCTAButton(isGlowing: playGlow, action: onPlay)
     }
-
-    // MARK: - Shortcuts
 
     private var shortcutsRow: some View {
-        HStack(spacing: 10) {
-            shortcutCard(emoji: "🎁", title: "Daily Reward", action: onDailyReward)
-            shortcutCard(emoji: "🏆", title: "Missions", action: onMissions)
-            shortcutCard(emoji: "🎰", title: "Lucky Bonus", action: onLuckyBonus)
-            shortcutCard(emoji: "🎡", title: "Spin Wheel", action: onSpinWheel)
+        HStack(spacing: 12) {
+            HomeShortcutItem(imageName: "ShortcutGift", title: "Daily Reward", action: onDailyReward)
+            HomeShortcutItem(imageName: "ShortcutTrophy", title: "Missions", action: onMissions)
+            HomeShortcutItem(imageName: "ShortcutSlots", title: "Lucky Bonus", action: onLuckyBonus)
+            HomeShortcutItem(imageName: "ShortcutWheel", title: "Spin Wheel", action: onSpinWheel)
         }
-    }
-
-    private func shortcutCard(emoji: String, title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 8) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color(red: 0.32, green: 0.14, blue: 0.55).opacity(0.85),
-                                    Color(red: 0.12, green: 0.06, blue: 0.28).opacity(0.9)
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .stroke(AppTheme.goldGradient, lineWidth: 1.6)
-                        )
-                        .shadow(color: AppTheme.gold.opacity(0.22), radius: 8, y: 3)
-
-                    // Glass highlight
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.white.opacity(0.18), .clear],
-                                startPoint: .top,
-                                endPoint: .center
-                            )
-                        )
-                        .padding(1)
-
-                    Text(emoji)
-                        .font(.system(size: 30))
-                        .shadow(color: .black.opacity(0.35), radius: 3, y: 2)
-                }
-                .frame(height: 64)
-
-                Text(title)
-                    .font(.system(size: 10, weight: .heavy, design: .rounded))
-                    .foregroundStyle(AppTheme.goldGradient)
-                    .shadow(color: .black.opacity(0.5), radius: 2)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .frame(height: 26)
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(PressableButtonStyle())
     }
 }

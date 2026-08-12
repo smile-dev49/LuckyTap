@@ -18,12 +18,8 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
-            // Other tabs keep theme gradient; Home paints its own city background
-            if tab != .home {
-                AppTheme.backgroundGradient.ignoresSafeArea()
-            } else {
-                Color.black.ignoresSafeArea()
-            }
+            // Same neon city background for all main tabs
+            CityBackgroundView(dimOpacity: tab == .home ? 0.25 : 0.45)
 
             Group {
                 switch tab {
@@ -53,6 +49,8 @@ struct RootView: View {
             VStack {
                 Spacer()
                 BottomTabBar(selected: $tab)
+                    .padding(.horizontal, 14)
+                    .padding(.bottom, 8)
             }
             .opacity(showSplash ? 0 : 1)
 
@@ -82,7 +80,6 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.45), value: showSplash)
         .animation(.spring(response: 0.35), value: store.toast)
         .task {
-            // Splash duration: ~2.2s (within 1–3s)
             try? await Task.sleep(nanoseconds: 2_200_000_000)
             withAnimation(.easeInOut(duration: 0.45)) {
                 showSplash = false
@@ -111,45 +108,114 @@ struct BottomTabBar: View {
     @Binding var selected: MainTab
 
     var body: some View {
-        HStack(spacing: 0) {
-            tabButton(.home, title: "HOME", system: "house.fill")
-            tabButton(.rewards, title: "ACHIEVEMENTS", system: "trophy.fill")
-            tabButton(.profile, title: "PROFILE", system: "person.fill")
+        HStack(spacing: 6) {
+            tabItem(.home, title: "HOME", system: "house.fill")
+            tabItem(.rewards, title: "ACHIEVEMENTS", system: "trophy.fill")
+            tabItem(.profile, title: "PROFILE", system: "person.fill")
         }
-        .padding(.top, 12)
-        .padding(.bottom, 20)
+        .padding(.horizontal, 8)
+        .padding(.top, 10)
+        .padding(.bottom, 10)
         .background {
             ZStack {
-                Rectangle().fill(.ultraThinMaterial)
-                Rectangle().fill(Color(red: 0.06, green: 0.03, blue: 0.14).opacity(0.72))
-                VStack {
-                    Rectangle()
-                        .fill(AppTheme.gold.opacity(0.4))
-                        .frame(height: 1)
-                    Spacer()
-                }
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .fill(.ultraThinMaterial)
+
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.18, green: 0.08, blue: 0.36).opacity(0.78),
+                                Color(red: 0.06, green: 0.03, blue: 0.16).opacity(0.88)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                AppTheme.gold.opacity(0.75),
+                                AppTheme.gold.opacity(0.2),
+                                Color(red: 0.7, green: 0.4, blue: 1.0).opacity(0.45)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1.4
+                    )
+
+                // Top sheen
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.white.opacity(0.14), .clear],
+                            startPoint: .top,
+                            endPoint: .center
+                        )
+                    )
             }
-            .ignoresSafeArea(edges: .bottom)
+            .shadow(color: .black.opacity(0.45), radius: 16, y: 6)
+            .shadow(color: AppTheme.gold.opacity(0.15), radius: 10, y: 0)
         }
     }
 
-    private func tabButton(_ tab: MainTab, title: String, system: String) -> some View {
-        Button {
-            withAnimation(.spring(response: 0.32, dampingFraction: 0.75)) {
+    private func tabItem(_ tab: MainTab, title: String, system: String) -> some View {
+        let isActive = selected == tab
+
+        return Button {
+            withAnimation(.spring(response: 0.34, dampingFraction: 0.72)) {
                 selected = tab
             }
         } label: {
-            VStack(spacing: 5) {
-                Image(systemName: system)
-                    .font(.system(size: 18, weight: .bold))
-                    .scaleEffect(selected == tab ? 1.08 : 1.0)
+            VStack(spacing: 4) {
+                ZStack {
+                    if isActive {
+                        Capsule()
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        AppTheme.gold.opacity(0.45),
+                                        AppTheme.gold.opacity(0.12)
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
+                            .frame(width: 56, height: 32)
+                            .overlay(
+                                Capsule()
+                                    .stroke(AppTheme.gold.opacity(0.55), lineWidth: 1)
+                            )
+                            .shadow(color: AppTheme.gold.opacity(0.55), radius: 10)
+                    }
+
+                    Image(systemName: system)
+                        .font(.system(size: isActive ? 18 : 16, weight: .bold))
+                        .foregroundStyle(
+                            isActive
+                            ? AnyShapeStyle(AppTheme.goldGradient)
+                            : AnyShapeStyle(Color.white.opacity(0.55))
+                        )
+                        .shadow(color: isActive ? AppTheme.gold.opacity(0.7) : .clear, radius: 6)
+                }
+                .frame(height: 32)
+
                 Text(title)
-                    .font(.system(size: 10, weight: .heavy, design: .rounded))
+                    .font(.system(size: 9, weight: .heavy, design: .rounded))
+                    .foregroundStyle(
+                        isActive
+                        ? AnyShapeStyle(AppTheme.goldGradient)
+                        : AnyShapeStyle(Color.white.opacity(0.5))
+                    )
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
-            .foregroundColor(selected == tab ? AppTheme.gold : .white.opacity(0.45))
-            .shadow(color: selected == tab ? AppTheme.gold.opacity(0.45) : .clear, radius: 6)
             .frame(maxWidth: .infinity)
+            .padding(.vertical, 4)
         }
-        .buttonStyle(PressableButtonStyle(scale: 0.92))
+        .buttonStyle(PressableButtonStyle(scale: 0.94))
     }
 }

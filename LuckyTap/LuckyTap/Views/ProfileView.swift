@@ -9,7 +9,6 @@ struct ProfileView: View {
 
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
-                    // User card
                     HStack(spacing: 14) {
                         ZStack {
                             Circle()
@@ -52,14 +51,12 @@ struct ProfileView: View {
                     .goldBorder(cornerRadius: 18)
                     .padding(.horizontal, 18)
 
-                    // Stats
                     HStack(spacing: 12) {
                         statBox(title: "TOTAL COINS", value: GameStore.format(store.player.coins))
                         statBox(title: "BEST WIN", value: GameStore.format(store.player.bestWin))
                     }
                     .padding(.horizontal, 18)
 
-                    // Collection
                     VStack(alignment: .leading, spacing: 12) {
                         Text("COLLECTION")
                             .font(.system(size: 14, weight: .heavy))
