@@ -1,54 +1,43 @@
-# Lucky Tap — iOS MVP
+# Lucky Tap — 555 Slots (SwiftUI)
 
-Virtual-coin casino casual game built with **SwiftUI + MVVM**. Offline only. Main symbol: **555**.
+Local virtual-coin slot game based on your UI design. No backend. SDK hook-up can come later.
 
-## Open in Xcode
+## Open & run
 
-1. Copy/open this folder on a Mac
-2. Open `LuckyTap.xcodeproj`
-3. Select an iPhone simulator
-4. Press **Run** (⌘R)
+1. On a Mac, open `LuckyTap/LuckyTap.xcodeproj` in Xcode 15+.
+2. Select an iPhone simulator (iOS 17+).
+3. Set your Team under Signing if needed.
+4. Drop `icon.jpg` into `Assets.xcassets → AppIcon` (1024×1024).
+5. Press **Run**.
 
-Requires **Xcode 15+** / **iOS 17+**.
+## Screens
 
-## Core flow
+| Screen | Role |
+|--------|------|
+| **Home** | Branding, PLAY, shortcuts |
+| **Game** | 3-reel slots, TAP / TAP TO STOP, bet, auto |
+| **Achievements** | Daily reward (7-day) + missions |
+| **Profile** | Level, stats, collections |
+| **Lucky Bonus** | Full-screen free spins |
+| **Spin Wheel** | Full-screen daily wheel |
+| **Settings** | Sound / haptics / reset |
 
-Home → PLAY → select BET → TAP → reels spin → win/lose → coins update
+## Economy (current)
 
-## Screens (MVP)
+- Start coins: **1,100,000**
+- Default bet: **110,000** (step 10,000 · min 10,000 · max 500,000)
+- Symbols: **5**, clover, star, diamond, heart
+- **555 jackpot**: 50× bet
+- Progress saved in `UserDefaults`
 
-- Home
-- Game (555 reels)
-- Daily Reward
-- Settings
+## Project layout
 
-## Config
-
-Edit `LuckyTap/Models/GameConfiguration.swift` for:
-
-- Starting balance (`100_000`)
-- Bet options
-- Payout multipliers
-- Daily reward amounts
-
-## Local save
-
-`UserDefaults` via `PersistenceManager` stores coins, bet, daily streak, sound/vibration, best win.
-
-## Sounds
-
-Optional wav/mp3 names (safe if missing):
-
-- `sfx_button_tap`
-- `sfx_reel_spin`
-- `sfx_reel_stop`
-- `sfx_normal_win`
-- `sfx_lucky_555`
-
-## Assets
-
-- **App Icon:** `icon.jpg` → `Assets.xcassets/AppIcon` (home-screen icon only)
-- **In-app UI:** SwiftUI shapes, gradients, SF Symbols, and text — do **not** paste reference PNGs into screens
-- Placeholder imageset names reserved for later custom art: `lucky_tap_logo`, `game_background`, `coin_icon`, `slot_frame`, `reel_5`
-
-Design references stay in `DesignReferences/` for visual guidance only.
+```
+LuckyTap/
+  LuckyTapApp.swift
+  Theme/
+  Models/
+  Services/     GameStore + SlotEngine
+  Views/        Home, Game, Rewards, Profile, Bonus, Wheel, Settings
+  Assets.xcassets
+```

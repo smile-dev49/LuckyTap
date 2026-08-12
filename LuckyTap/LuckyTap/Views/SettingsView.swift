@@ -1,150 +1,85 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject private var viewModel: GameViewModel
-    @Environment(\.dismiss) private var dismiss
-    @State private var showResetConfirmation = false
+    @EnvironmentObject private var store: GameStore
+    var onClose: () -> Void
 
     var body: some View {
         ZStack {
-            VegasBackground()
+            AppTheme.backgroundGradient.ignoresSafeArea()
 
             VStack(spacing: 20) {
-                header
-
-                LuckyTapLogo(size: 0.62)
-                    .padding(.vertical, 4)
-
-                VStack(spacing: 14) {
-                    settingsToggleRow(
-                        title: "Sound",
-                        icon: "speaker.wave.2.fill",
-                        isOn: Binding(
-                            get: { viewModel.soundEnabled },
-                            set: { viewModel.setSoundEnabled($0) }
-                        )
-                    )
-
-                    settingsToggleRow(
-                        title: "Vibration",
-                        icon: "iphone.radiowaves.left.and.right",
-                        isOn: Binding(
-                            get: { viewModel.vibrationEnabled },
-                            set: { viewModel.setVibrationEnabled($0) }
-                        )
-                    )
-                }
-                .padding(.horizontal, 20)
-
-                VStack(spacing: 8) {
-                    Text("Best Win")
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.7))
-                    HStack(spacing: 8) {
-                        GoldCoinIcon(size: 24)
-                        Text(GameViewModel.formatCoins(viewModel.bestWin))
-                            .font(.system(size: 28, weight: .black, design: .rounded))
-                            .foregroundStyle(GameTheme.goldGradient)
+                HStack {
+                    Button(action: onClose) {
+                        Image(systemName: "xmark")
+                            .font(.title3.bold())
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .background(Color.black.opacity(0.35))
+                            .clipShape(Circle())
                     }
+                    .buttonStyle(.plain)
+                    Spacer()
+                    Text("SETTINGS")
+                        .font(.system(size: 24, weight: .black, design: .rounded))
+                        .foregroundStyle(AppTheme.goldGradient)
+                    Spacer()
+                    Color.clear.frame(width: 40, height: 40)
                 }
-                .padding(.vertical, 16)
-                .frame(maxWidth: .infinity)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.black.opacity(0.45))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(GameTheme.gold.opacity(0.55), lineWidth: 1.8)
-                        )
-                )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 18)
+
+                VStack(spacing: 0) {
+                    toggleRow("Sound", isOn: $store.player.soundEnabled)
+                    Divider().background(Color.white.opacity(0.15))
+                    toggleRow("Haptics", isOn: $store.player.hapticsEnabled)
+                }
+                .background(AppTheme.panel)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .goldBorder(cornerRadius: 16)
+                .padding(.horizontal, 18)
+                .onChange(of: store.player.soundEnabled) { _, _ in store.save() }
+                .onChange(of: store.player.hapticsEnabled) { _, _ in store.save() }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("About")
+                        .font(.headline.bold())
+                        .foregroundColor(.white.opacity(0.8))
+                    Text("Lucky Tap — 555 Slots\nVirtual coins only. Local play. SDK-ready later.")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(16)
+                .background(AppTheme.panel)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.horizontal, 18)
 
                 Spacer()
 
-                CasinoButton(title: "Reset Game", style: .goldOutline, fontSize: 20, verticalPadding: 14) {
-                    showResetConfirmation = true
+                Button(role: .destructive) {
+                    store.resetProgress()
+                } label: {
+                    Text("Reset Progress")
+                        .font(.headline.bold())
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red.opacity(0.75))
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-                .padding(.horizontal, 40)
-                .padding(.bottom, 32)
+                .padding(.horizontal, 18)
+                .padding(.bottom, 30)
             }
-            .padding(.top, 8)
-        }
-        .navigationBarHidden(true)
-        .alert(
-            "Are you sure you want to reset your Lucky Tap progress?",
-            isPresented: $showResetConfirmation
-        ) {
-            Button("Cancel", role: .cancel) {}
-            Button("Reset", role: .destructive) {
-                viewModel.resetGame()
-            }
-        } message: {
-            Text("Coins, daily reward streak, and selected bet will be restored to defaults.")
         }
     }
 
-    private var header: some View {
-        HStack {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.left")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(GameTheme.gold)
-                    .frame(width: 42, height: 42)
-                    .background(
-                        Circle()
-                            .fill(Color.black.opacity(0.35))
-                            .overlay(Circle().stroke(GameTheme.gold.opacity(0.55), lineWidth: 1.5))
-                    )
-            }
-            .buttonStyle(ScalePressStyle())
-
-            Spacer()
-
-            Text("SETTINGS")
-                .font(.system(size: 22, weight: .black, design: .rounded))
-                .foregroundStyle(.white)
-                .shadow(color: GameTheme.gold.opacity(0.35), radius: 3)
-
-            Spacer()
-
-            Color.clear.frame(width: 42, height: 42)
-        }
-        .padding(.horizontal, 16)
-    }
-
-    private func settingsToggleRow(title: String, icon: String, isOn: Binding<Bool>) -> some View {
-        HStack {
-            Image(systemName: icon)
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(GameTheme.gold)
-                .frame(width: 28)
-
+    private func toggleRow(_ title: String, isOn: Binding<Bool>) -> some View {
+        Toggle(isOn: isOn) {
             Text(title)
-                .font(.system(size: 17, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
-
-            Spacer()
-
-            Text(isOn.wrappedValue ? "ON" : "OFF")
-                .font(.system(size: 13, weight: .bold, design: .rounded))
-                .foregroundStyle(isOn.wrappedValue ? GameTheme.greenButtonTop : .white.opacity(0.5))
-                .frame(width: 36)
-
-            Toggle("", isOn: isOn)
-                .labelsHidden()
-                .tint(GameTheme.greenButtonBottom)
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.white)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 14)
-        .background(
-            RoundedRectangle(cornerRadius: 14)
-                .fill(Color.black.opacity(0.45))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14)
-                        .stroke(GameTheme.gold.opacity(0.5), lineWidth: 1.5)
-                )
-        )
+        .tint(AppTheme.neonGreen)
+        .padding(16)
     }
 }

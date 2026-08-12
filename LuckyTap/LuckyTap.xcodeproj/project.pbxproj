@@ -7,61 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10000000000000000000001 /* LuckyTapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* LuckyTapApp.swift */; };
-		A10000000000000000000002 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* RootView.swift */; };
-		A10000000000000000000003 /* GameTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* GameTheme.swift */; };
-		A10000000000000000000004 /* GameConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* GameConfiguration.swift */; };
-		A10000000000000000000005 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* GameResult.swift */; };
-		A10000000000000000000006 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* GameState.swift */; };
-		A10000000000000000000007 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* AppRoute.swift */; };
-		A10000000000000000000008 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000008 /* GameViewModel.swift */; };
-		A10000000000000000000009 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000009 /* HomeView.swift */; };
-		A1000000000000000000000A /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000A /* GameView.swift */; };
-		A1000000000000000000000B /* ReelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000B /* ReelView.swift */; };
-		A1000000000000000000000C /* DailyRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000C /* DailyRewardView.swift */; };
-		A1000000000000000000000D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000D /* SettingsView.swift */; };
-		A1000000000000000000000E /* CoinBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000E /* CoinBalanceView.swift */; };
-		A1000000000000000000000F /* CasinoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000000F /* CasinoButton.swift */; };
-		A10000000000000000000010 /* BetControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000010 /* BetControlView.swift */; };
-		A10000000000000000000011 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* GameEngine.swift */; };
-		A10000000000000000000012 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* PersistenceManager.swift */; };
-		A10000000000000000000013 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* SoundManager.swift */; };
-		A10000000000000000000014 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* HapticManager.swift */; };
-		A10000000000000000000015 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* Assets.xcassets */; };
-		A10000000000000000000016 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* Preview Assets.xcassets */; };
-		A10000000000000000000018 /* VegasChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000019 /* VegasChrome.swift */; };
+		A10000000000000000000001 /* LuckyTapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* LuckyTapApp.swift */; };
+		A10000000000000000000002 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000002 /* AppTheme.swift */; };
+		A10000000000000000000003 /* SlotSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000003 /* SlotSymbol.swift */; };
+		A10000000000000000000004 /* PlayerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000004 /* PlayerModels.swift */; };
+		A10000000000000000000005 /* SlotEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000005 /* SlotEngine.swift */; };
+		A10000000000000000000006 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000006 /* GameStore.swift */; };
+		A10000000000000000000007 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* RootView.swift */; };
+		A10000000000000000000008 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* HomeView.swift */; };
+		A10000000000000000000009 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* GameView.swift */; };
+		A1000000000000000000000A /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* RewardsView.swift */; };
+		A1000000000000000000000B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* ProfileView.swift */; };
+		A1000000000000000000000C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* SettingsView.swift */; };
+		A1000000000000000000000D /* LuckyBonusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* LuckyBonusView.swift */; };
+		A1000000000000000000000E /* SpinWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000E /* SpinWheelView.swift */; };
+		A1000000000000000000000F /* CommonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000F /* CommonUI.swift */; };
+		A10000000000000000000010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000010 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A20000000000000000000001 /* LuckyTapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyTapApp.swift; sourceTree = "<group>"; };
-		A20000000000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		A20000000000000000000003 /* GameTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTheme.swift; sourceTree = "<group>"; };
-		A20000000000000000000004 /* GameConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfiguration.swift; sourceTree = "<group>"; };
-		A20000000000000000000005 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
-		A20000000000000000000006 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
-		A20000000000000000000007 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
-		A20000000000000000000008 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
-		A20000000000000000000009 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000A /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000B /* ReelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000C /* DailyRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRewardView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000E /* CoinBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBalanceView.swift; sourceTree = "<group>"; };
-		A2000000000000000000000F /* CasinoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CasinoButton.swift; sourceTree = "<group>"; };
-		A20000000000000000000010 /* BetControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetControlView.swift; sourceTree = "<group>"; };
-		A20000000000000000000011 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
-		A20000000000000000000012 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
-		A20000000000000000000013 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		A20000000000000000000014 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		A20000000000000000000015 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A20000000000000000000016 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A20000000000000000000017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A20000000000000000000019 /* VegasChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegasChrome.swift; sourceTree = "<group>"; };
-		A30000000000000000000001 /* LuckyTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuckyTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000001 /* LuckyTapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyTapApp.swift; sourceTree = "<group>"; };
+		B10000000000000000000002 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		B10000000000000000000003 /* SlotSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotSymbol.swift; sourceTree = "<group>"; };
+		B10000000000000000000004 /* PlayerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModels.swift; sourceTree = "<group>"; };
+		B10000000000000000000005 /* SlotEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotEngine.swift; sourceTree = "<group>"; };
+		B10000000000000000000006 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
+		B10000000000000000000007 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B10000000000000000000008 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B10000000000000000000009 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000A /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000D /* LuckyBonusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyBonusView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000E /* SpinWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000F /* CommonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUI.swift; sourceTree = "<group>"; };
+		B10000000000000000000010 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B10000000000000000000011 /* LuckyTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuckyTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A40000000000000000000001 /* Frameworks */ = {
+		C10000000000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -71,119 +56,95 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A50000000000000000000001 = {
+		D10000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				A50000000000000000000002 /* LuckyTap */,
-				A50000000000000000000003 /* Products */,
+				D10000000000000000000002 /* LuckyTap */,
+				D10000000000000000000003 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		A50000000000000000000002 /* LuckyTap */ = {
+		D10000000000000000000002 /* LuckyTap */ = {
 			isa = PBXGroup;
 			children = (
-				A20000000000000000000001 /* LuckyTapApp.swift */,
-				A20000000000000000000002 /* RootView.swift */,
-				A50000000000000000000004 /* Models */,
-				A50000000000000000000005 /* ViewModels */,
-				A50000000000000000000006 /* Views */,
-				A50000000000000000000007 /* Components */,
-				A50000000000000000000008 /* Services */,
-				A50000000000000000000009 /* Theme */,
-				A20000000000000000000015 /* Assets.xcassets */,
-				A20000000000000000000017 /* Info.plist */,
-				A5000000000000000000000A /* Preview Content */,
+				B10000000000000000000001 /* LuckyTapApp.swift */,
+				D10000000000000000000004 /* Theme */,
+				D10000000000000000000005 /* Models */,
+				D10000000000000000000006 /* Services */,
+				D10000000000000000000007 /* Views */,
+				B10000000000000000000010 /* Assets.xcassets */,
 			);
 			path = LuckyTap;
 			sourceTree = "<group>";
 		};
-		A50000000000000000000003 /* Products */ = {
+		D10000000000000000000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A30000000000000000000001 /* LuckyTap.app */,
+				B10000000000000000000011 /* LuckyTap.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A50000000000000000000004 /* Models */ = {
+		D10000000000000000000004 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				A20000000000000000000004 /* GameConfiguration.swift */,
-				A20000000000000000000005 /* GameResult.swift */,
-				A20000000000000000000006 /* GameState.swift */,
-				A20000000000000000000007 /* AppRoute.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		A50000000000000000000005 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				A20000000000000000000008 /* GameViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		A50000000000000000000006 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A20000000000000000000009 /* HomeView.swift */,
-				A2000000000000000000000A /* GameView.swift */,
-				A2000000000000000000000B /* ReelView.swift */,
-				A2000000000000000000000C /* DailyRewardView.swift */,
-				A2000000000000000000000D /* SettingsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		A50000000000000000000007 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				A2000000000000000000000E /* CoinBalanceView.swift */,
-				A2000000000000000000000F /* CasinoButton.swift */,
-				A20000000000000000000010 /* BetControlView.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		A50000000000000000000008 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				A20000000000000000000011 /* GameEngine.swift */,
-				A20000000000000000000012 /* PersistenceManager.swift */,
-				A20000000000000000000013 /* SoundManager.swift */,
-				A20000000000000000000014 /* HapticManager.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		A50000000000000000000009 /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				A20000000000000000000003 /* GameTheme.swift */,
-				A20000000000000000000019 /* VegasChrome.swift */,
+				B10000000000000000000002 /* AppTheme.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
 		};
-		A5000000000000000000000A /* Preview Content */ = {
+		D10000000000000000000005 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A20000000000000000000016 /* Preview Assets.xcassets */,
+				B10000000000000000000003 /* SlotSymbol.swift */,
+				B10000000000000000000004 /* PlayerModels.swift */,
 			);
-			path = "Preview Content";
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000005 /* SlotEngine.swift */,
+				B10000000000000000000006 /* GameStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000007 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B10000000000000000000007 /* RootView.swift */,
+				B10000000000000000000008 /* HomeView.swift */,
+				B10000000000000000000009 /* GameView.swift */,
+				B1000000000000000000000A /* RewardsView.swift */,
+				B1000000000000000000000B /* ProfileView.swift */,
+				B1000000000000000000000C /* SettingsView.swift */,
+				B1000000000000000000000D /* LuckyBonusView.swift */,
+				B1000000000000000000000E /* SpinWheelView.swift */,
+				D10000000000000000000008 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D10000000000000000000008 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000000F /* CommonUI.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A60000000000000000000001 /* LuckyTap */ = {
+		E10000000000000000000001 /* LuckyTap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A80000000000000000000003 /* Build configuration list for PBXNativeTarget "LuckyTap" */;
+			buildConfigurationList = F10000000000000000000003 /* Build configuration list for PBXNativeTarget "LuckyTap" */;
 			buildPhases = (
-				A70000000000000000000001 /* Sources */,
-				A40000000000000000000001 /* Frameworks */,
-				A70000000000000000000002 /* Resources */,
+				E10000000000000000000002 /* Sources */,
+				C10000000000000000000001 /* Frameworks */,
+				E10000000000000000000003 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -191,25 +152,25 @@
 			);
 			name = LuckyTap;
 			productName = LuckyTap;
-			productReference = A30000000000000000000001 /* LuckyTap.app */;
+			productReference = B10000000000000000000011 /* LuckyTap.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A90000000000000000000001 /* Project object */ = {
+		E10000000000000000000004 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					A60000000000000000000001 = {
+					E10000000000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
-			buildConfigurationList = A80000000000000000000001 /* Build configuration list for PBXProject "LuckyTap" */;
+			buildConfigurationList = F10000000000000000000001 /* Build configuration list for PBXProject "LuckyTap" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -217,238 +178,142 @@
 				en,
 				Base,
 			);
-			mainGroup = A50000000000000000000001;
-			productRefGroup = A50000000000000000000003 /* Products */;
+			mainGroup = D10000000000000000000001;
+			productRefGroup = D10000000000000000000003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A60000000000000000000001 /* LuckyTap */,
+				E10000000000000000000001 /* LuckyTap */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A70000000000000000000002 /* Resources */ = {
+		E10000000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000016 /* Preview Assets.xcassets in Resources */,
-				A10000000000000000000015 /* Assets.xcassets in Resources */,
+				A10000000000000000000010 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A70000000000000000000001 /* Sources */ = {
+		E10000000000000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A10000000000000000000001 /* LuckyTapApp.swift in Sources */,
-				A10000000000000000000002 /* RootView.swift in Sources */,
-				A10000000000000000000003 /* GameTheme.swift in Sources */,
-				A10000000000000000000004 /* GameConfiguration.swift in Sources */,
-				A10000000000000000000005 /* GameResult.swift in Sources */,
-				A10000000000000000000006 /* GameState.swift in Sources */,
-				A10000000000000000000007 /* AppRoute.swift in Sources */,
-				A10000000000000000000008 /* GameViewModel.swift in Sources */,
-				A10000000000000000000009 /* HomeView.swift in Sources */,
-				A1000000000000000000000A /* GameView.swift in Sources */,
-				A1000000000000000000000B /* ReelView.swift in Sources */,
-				A1000000000000000000000C /* DailyRewardView.swift in Sources */,
-				A1000000000000000000000D /* SettingsView.swift in Sources */,
-				A1000000000000000000000E /* CoinBalanceView.swift in Sources */,
-				A1000000000000000000000F /* CasinoButton.swift in Sources */,
-				A10000000000000000000010 /* BetControlView.swift in Sources */,
-				A10000000000000000000011 /* GameEngine.swift in Sources */,
-				A10000000000000000000012 /* PersistenceManager.swift in Sources */,
-				A10000000000000000000013 /* SoundManager.swift in Sources */,
-				A10000000000000000000014 /* HapticManager.swift in Sources */,
-				A10000000000000000000018 /* VegasChrome.swift in Sources */,
+				A10000000000000000000002 /* AppTheme.swift in Sources */,
+				A10000000000000000000003 /* SlotSymbol.swift in Sources */,
+				A10000000000000000000004 /* PlayerModels.swift in Sources */,
+				A10000000000000000000005 /* SlotEngine.swift in Sources */,
+				A10000000000000000000006 /* GameStore.swift in Sources */,
+				A10000000000000000000007 /* RootView.swift in Sources */,
+				A10000000000000000000008 /* HomeView.swift in Sources */,
+				A10000000000000000000009 /* GameView.swift in Sources */,
+				A1000000000000000000000A /* RewardsView.swift in Sources */,
+				A1000000000000000000000B /* ProfileView.swift in Sources */,
+				A1000000000000000000000C /* SettingsView.swift in Sources */,
+				A1000000000000000000000D /* LuckyBonusView.swift in Sources */,
+				A1000000000000000000000E /* SpinWheelView.swift in Sources */,
+				A1000000000000000000000F /* CommonUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A80000000000000000000004 /* Debug */ = {
+		F10000000000000000000004 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		A80000000000000000000005 /* Release */ = {
+		F10000000000000000000005 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		A80000000000000000000006 /* Debug */ = {
+		F10000000000000000000006 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LuckyTap/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LuckyTap/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Tap";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.luckytap.game;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luckytap.slots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		A80000000000000000000007 /* Release */ = {
+		F10000000000000000000007 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"LuckyTap/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LuckyTap/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Tap";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.luckytap.game;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luckytap.slots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -457,25 +322,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A80000000000000000000001 /* Build configuration list for PBXProject "LuckyTap" */ = {
+		F10000000000000000000001 /* Build configuration list for PBXProject "LuckyTap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A80000000000000000000004 /* Debug */,
-				A80000000000000000000005 /* Release */,
+				F10000000000000000000004 /* Debug */,
+				F10000000000000000000005 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A80000000000000000000003 /* Build configuration list for PBXNativeTarget "LuckyTap" */ = {
+		F10000000000000000000003 /* Build configuration list for PBXNativeTarget "LuckyTap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A80000000000000000000006 /* Debug */,
-				A80000000000000000000007 /* Release */,
+				F10000000000000000000006 /* Debug */,
+				F10000000000000000000007 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A90000000000000000000001 /* Project object */;
+	rootObject = E10000000000000000000004 /* Project object */;
 }

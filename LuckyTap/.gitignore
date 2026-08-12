@@ -2,25 +2,13 @@
 DerivedData/
 build/
 *.xcuserstate
-xcuserdata/
+*.xcuserdata/
 *.moved-aside
 *.hmap
 *.ipa
 *.dSYM.zip
 *.dSYM
-
-# macOS
-.DS_Store
-
-# Playgrounds
 timeline.xctimeline
 playground.xcworkspace
-
-# Swift Package Manager
-.build/
 .swiftpm/
-Packages/
-
-# Temporary
-*.swp
-*~.nib
+.DS_Store

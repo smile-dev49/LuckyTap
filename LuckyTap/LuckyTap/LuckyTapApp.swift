@@ -2,12 +2,12 @@ import SwiftUI
 
 @main
 struct LuckyTapApp: App {
-    @StateObject private var viewModel = GameViewModel()
+    @StateObject private var store = GameStore()
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(viewModel)
+                .environmentObject(store)
                 .preferredColorScheme(.dark)
         }
     }
