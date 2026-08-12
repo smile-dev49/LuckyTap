@@ -164,7 +164,10 @@ struct GameView: View {
                 .tracking(2)
 
             HStack(spacing: 10) {
-                GoldCoinIcon(size: 28)
+                Image("coin_icon")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 28, height: 28)
 
                 Text(GameViewModel.formatCoins(animatedWin))
                     .font(.system(size: 36, weight: .black, design: .rounded))

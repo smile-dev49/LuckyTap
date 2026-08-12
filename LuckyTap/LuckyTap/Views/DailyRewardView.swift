@@ -159,7 +159,10 @@ struct DailyRewardView: View {
                 .foregroundStyle(GameTheme.gold)
 
             ZStack {
-                GoldCoinIcon(size: 34)
+                Image("coin_icon")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 34, height: 34)
 
                 switch status {
                 case .claimed:

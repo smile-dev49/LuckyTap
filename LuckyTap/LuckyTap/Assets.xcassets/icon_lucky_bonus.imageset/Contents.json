@@ -1,17 +1,17 @@
 {
   "images": [
     {
-      "filename": "coin_icon.png",
+      "filename": "icon_lucky_bonus.png",
       "idiom": "universal",
       "scale": "1x"
     },
     {
-      "filename": "coin_icon@2x.png",
+      "filename": "icon_lucky_bonus@2x.png",
       "idiom": "universal",
       "scale": "2x"
     },
     {
-      "filename": "coin_icon@3x.png",
+      "filename": "icon_lucky_bonus@3x.png",
       "idiom": "universal",
       "scale": "3x"
     }
