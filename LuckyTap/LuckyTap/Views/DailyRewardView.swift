@@ -159,12 +159,7 @@ struct DailyRewardView: View {
                 .foregroundStyle(GameTheme.gold)
 
             ZStack {
-                OptionalAssetImage(name: "coin_icon") {
-                    Image(systemName: "bitcoinsign.circle.fill")
-                        .font(.system(size: 28))
-                        .foregroundStyle(GameTheme.goldGradient)
-                }
-                .frame(width: 34, height: 34)
+                GoldCoinIcon(size: 34)
 
                 switch status {
                 case .claimed:

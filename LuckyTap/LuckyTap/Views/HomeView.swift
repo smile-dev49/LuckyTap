@@ -11,15 +11,30 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 topBar
                     .padding(.horizontal, 18)
-                    .padding(.top, 6)
+                    .padding(.top, 8)
 
-                Spacer(minLength: 4)
+                Spacer(minLength: 8)
 
-                // Branding hero from icon.jpg — mascot + 555 machine
-                heroArt
-                    .padding(.horizontal, 12)
+                LuckyTapLogo(size: 1.05)
+                    .padding(.bottom, 6)
 
-                Spacer(minLength: 10)
+                // Hero: mascot + 555 machine (SwiftUI only)
+                HStack(alignment: .bottom, spacing: 4) {
+                    MascotView()
+                        .scaleEffect(0.92)
+                        .offset(x: -4)
+
+                    SlotMachineView(
+                        reels: [5, 5, 5],
+                        spinning: [false, false, false],
+                        showLever: true
+                    )
+                    .frame(maxWidth: 210)
+                    .scaleEffect(0.92)
+                }
+                .padding(.horizontal, 12)
+
+                Spacer(minLength: 18)
 
                 CasinoButton(
                     title: "PLAY",
@@ -34,9 +49,9 @@ struct HomeView: View {
                 .neonGlow(GameTheme.orangeButtonTop, radius: 14)
 
                 dailyRewardButton
-                    .padding(.top, 26)
+                    .padding(.top, 28)
 
-                Spacer(minLength: 20)
+                Spacer(minLength: 24)
             }
         }
         .navigationBarHidden(true)
@@ -82,46 +97,6 @@ struct HomeView: View {
             }
             .buttonStyle(ScalePressStyle())
             .accessibilityLabel("Settings")
-        }
-    }
-
-    private var heroArt: some View {
-        ZStack {
-            // Soft gold glow behind art
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(GameTheme.gold.opacity(0.12))
-                .blur(radius: 18)
-                .padding(10)
-
-            OptionalAssetImage(name: "branding_hero") {
-                // Fallback if asset missing
-                VStack(spacing: 10) {
-                    LuckyTapLogo(size: 0.95)
-                    SlotMachineView(reels: [5, 5, 5], spinning: [false, false, false])
-                        .frame(maxWidth: 280)
-                }
-            }
-            .aspectRatio(1, contentMode: .fit)
-            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 28, style: .continuous)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                GameTheme.goldLight,
-                                GameTheme.gold,
-                                GameTheme.goldDark
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 4
-                    )
-            )
-            .shadow(color: GameTheme.gold.opacity(0.55), radius: 18)
-            .shadow(color: GameTheme.neonBlue.opacity(0.35), radius: 24)
-            .padding(.horizontal, 18)
-            .frame(maxHeight: 360)
         }
     }
 

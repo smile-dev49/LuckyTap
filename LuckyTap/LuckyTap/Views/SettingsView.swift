@@ -12,17 +12,8 @@ struct SettingsView: View {
             VStack(spacing: 20) {
                 header
 
-                // Branding badge
-                OptionalAssetImage(name: "lucky_tap_logo") {
-                    LuckyTapLogo(size: 0.55)
-                }
-                .frame(width: 120, height: 120)
-                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .stroke(GameTheme.goldGradient, lineWidth: 3)
-                )
-                .shadow(color: GameTheme.gold.opacity(0.45), radius: 12)
+                LuckyTapLogo(size: 0.62)
+                    .padding(.vertical, 4)
 
                 VStack(spacing: 14) {
                     settingsToggleRow(
@@ -50,12 +41,7 @@ struct SettingsView: View {
                         .font(.system(size: 13, weight: .semibold, design: .rounded))
                         .foregroundStyle(.white.opacity(0.7))
                     HStack(spacing: 8) {
-                        OptionalAssetImage(name: "coin_icon") {
-                            Image(systemName: "dollarsign.circle.fill")
-                                .foregroundStyle(GameTheme.gold)
-                        }
-                        .frame(width: 24, height: 24)
-
+                        GoldCoinIcon(size: 24)
                         Text(GameViewModel.formatCoins(viewModel.bestWin))
                             .font(.system(size: 28, weight: .black, design: .rounded))
                             .foregroundStyle(GameTheme.goldGradient)

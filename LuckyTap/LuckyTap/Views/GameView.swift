@@ -164,11 +164,7 @@ struct GameView: View {
                 .tracking(2)
 
             HStack(spacing: 10) {
-                OptionalAssetImage(name: "coin_icon") {
-                    Image(systemName: "dollarsign.circle.fill")
-                        .foregroundStyle(GameTheme.gold)
-                }
-                .frame(width: 28, height: 28)
+                GoldCoinIcon(size: 28)
 
                 Text(GameViewModel.formatCoins(animatedWin))
                     .font(.system(size: 36, weight: .black, design: .rounded))

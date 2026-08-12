@@ -45,14 +45,10 @@ Optional wav/mp3 names (safe if missing):
 - `sfx_normal_win`
 - `sfx_lucky_555`
 
-## Placeholder assets
+## Assets
 
-Add images later into `Assets.xcassets`:
+- **App Icon:** `icon.jpg` → `Assets.xcassets/AppIcon` (home-screen icon only)
+- **In-app UI:** SwiftUI shapes, gradients, SF Symbols, and text — do **not** paste reference PNGs into screens
+- Placeholder imageset names reserved for later custom art: `lucky_tap_logo`, `game_background`, `coin_icon`, `slot_frame`, `reel_5`
 
-- `lucky_tap_logo`
-- `game_background`
-- `coin_icon`
-- `slot_frame`
-- `reel_5`
-
-Design references are in `DesignReferences/`.
+Design references stay in `DesignReferences/` for visual guidance only.

@@ -7,23 +7,7 @@ struct CoinBalanceView: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            OptionalAssetImage(name: "coin_icon") {
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [GameTheme.goldLight, GameTheme.goldDark],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                    Text("$")
-                        .font(.system(size: compact ? 11 : 13, weight: .black, design: .rounded))
-                        .foregroundStyle(Color(red: 0.55, green: 0.32, blue: 0.02))
-                }
-            }
-            .frame(width: compact ? 24 : 28, height: compact ? 24 : 28)
-            .shadow(color: GameTheme.gold.opacity(0.7), radius: 4)
+            GoldCoinIcon(size: compact ? 24 : 28)
 
             Text(GameViewModel.formatCoins(balance))
                 .font(.system(size: compact ? 15 : 17, weight: .bold, design: .rounded))
