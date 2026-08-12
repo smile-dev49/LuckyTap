@@ -14,6 +14,7 @@ struct RootView: View {
     @State private var showLuckyBonus = false
     @State private var showSpinWheel = false
     @State private var rewardsFocusMissions = false
+    @State private var showSplash = true
 
     var body: some View {
         ZStack {
@@ -42,11 +43,13 @@ struct RootView: View {
                     ProfileView()
                 }
             }
+            .opacity(showSplash ? 0 : 1)
 
             VStack {
                 Spacer()
                 BottomTabBar(selected: $tab)
             }
+            .opacity(showSplash ? 0 : 1)
 
             if let toast = store.toast {
                 VStack {
@@ -64,8 +67,22 @@ struct RootView: View {
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .zIndex(20)
             }
+
+            if showSplash {
+                SplashView()
+                    .transition(.opacity)
+                    .zIndex(50)
+            }
         }
+        .animation(.easeInOut(duration: 0.45), value: showSplash)
         .animation(.spring(response: 0.35), value: store.toast)
+        .task {
+            // Splash duration: ~2.2s (within 1–3s)
+            try? await Task.sleep(nanoseconds: 2_200_000_000)
+            withAnimation(.easeInOut(duration: 0.45)) {
+                showSplash = false
+            }
+        }
         .fullScreenCover(isPresented: $showGame) {
             GameView(onClose: { showGame = false })
                 .environmentObject(store)
@@ -94,29 +111,48 @@ struct BottomTabBar: View {
             tabButton(.rewards, title: "ACHIEVEMENTS", system: "trophy.fill")
             tabButton(.profile, title: "PROFILE", system: "person.fill")
         }
-        .padding(.top, 10)
-        .padding(.bottom, 18)
+        .padding(.top, 12)
+        .padding(.bottom, 20)
         .background(
             Rectangle()
-                .fill(Color.black.opacity(0.55))
-                .overlay(Rectangle().stroke(AppTheme.gold.opacity(0.35), lineWidth: 1))
+                .fill(.ultraThinMaterial)
+                .overlay(
+                    Rectangle()
+                        .fill(Color.black.opacity(0.45))
+                )
+                .overlay(
+                    Rectangle()
+                        .fill(
+                            LinearGradient(
+                                colors: [AppTheme.gold.opacity(0.45), AppTheme.gold.opacity(0.08)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(height: 1),
+                    alignment: .top
+                )
                 .ignoresSafeArea(edges: .bottom)
         )
     }
 
     private func tabButton(_ tab: MainTab, title: String, system: String) -> some View {
         Button {
-            selected = tab
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.75)) {
+                selected = tab
+            }
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 5) {
                 Image(systemName: system)
                     .font(.system(size: 18, weight: .bold))
+                    .scaleEffect(selected == tab ? 1.08 : 1.0)
                 Text(title)
-                    .font(.system(size: 10, weight: .heavy))
+                    .font(.system(size: 10, weight: .heavy, design: .rounded))
             }
-            .foregroundColor(selected == tab ? AppTheme.gold : .white.opacity(0.55))
+            .foregroundColor(selected == tab ? AppTheme.gold : .white.opacity(0.45))
+            .shadow(color: selected == tab ? AppTheme.gold.opacity(0.45) : .clear, radius: 6)
             .frame(maxWidth: .infinity)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(PressableButtonStyle(scale: 0.92))
     }
 }
