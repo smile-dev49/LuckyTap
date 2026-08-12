@@ -4,69 +4,58 @@ struct HomeView: View {
     @EnvironmentObject private var viewModel: GameViewModel
     @Binding var path: NavigationPath
     @State private var comingSoonTitle: String?
+    @State private var appearReady = false
 
     var body: some View {
         ZStack {
-            // Full-bleed home background asset
-            Image("home_background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .overlay(
-                    LinearGradient(
-                        colors: [
-                            Color.black.opacity(0.15),
-                            Color.black.opacity(0.35),
-                            Color(red: 0.08, green: 0.02, blue: 0.18).opacity(0.75)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                    .ignoresSafeArea()
-                )
+            VegasBackground()
 
             VStack(spacing: 0) {
                 topBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
+                    .padding(.horizontal, 18)
+                    .padding(.top, 6)
 
-                Spacer(minLength: 6)
+                Spacer(minLength: 8)
 
-                Image("lucky_tap_logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: 280)
-                    .shadow(color: GameTheme.neonBlue.opacity(0.55), radius: 12)
-                    .shadow(color: .black.opacity(0.45), radius: 6, y: 3)
-                    .padding(.horizontal, 24)
+                LuckyTapLogo(size: 1.0)
+                    .scaleEffect(appearReady ? 1 : 0.92)
+                    .opacity(appearReady ? 1 : 0)
 
                 heroSection
-                    .padding(.top, 4)
+                    .padding(.top, 10)
+                    .opacity(appearReady ? 1 : 0)
+                    .offset(y: appearReady ? 0 : 12)
 
-                Spacer(minLength: 10)
+                Spacer(minLength: 16)
 
                 CasinoButton(
                     title: "PLAY",
                     style: .orange,
-                    fontSize: 34,
-                    horizontalPadding: 20,
-                    verticalPadding: 17
+                    fontSize: 32,
+                    horizontalPadding: 24,
+                    verticalPadding: 16
                 ) {
                     path.append(AppRoute.game)
                 }
-                .padding(.horizontal, 48)
-                .neonGlow(GameTheme.orangeButtonTop, radius: 16)
+                .padding(.horizontal, 52)
+                .neonGlow(GameTheme.orangeButtonTop, radius: 14)
+                .scaleEffect(appearReady ? 1 : 0.96)
 
                 featureGrid
-                    .padding(.top, 22)
-                    .padding(.horizontal, 18)
+                    .padding(.top, 24)
+                    .padding(.horizontal, 20)
 
-                Spacer(minLength: 12)
+                Spacer(minLength: 16)
 
                 homeTabBar
             }
         }
         .navigationBarHidden(true)
+        .onAppear {
+            withAnimation(.spring(response: 0.55, dampingFraction: 0.82)) {
+                appearReady = true
+            }
+        }
         .alert(
             comingSoonTitle.map { "\($0) Coming Soon" } ?? "Coming Soon",
             isPresented: Binding(
@@ -80,10 +69,10 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Top bar
+    // MARK: - Top
 
     private var topBar: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 12) {
             CoinBalanceView(balance: viewModel.coinBalance, showPlus: true)
 
             Spacer()
@@ -92,98 +81,73 @@ struct HomeView: View {
                 path.append(AppRoute.settings)
             } label: {
                 Image(systemName: "gearshape.fill")
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [GameTheme.goldLight, GameTheme.gold],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundStyle(GameTheme.goldGradient)
                     .frame(width: 44, height: 44)
                     .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        Circle()
                             .fill(
                                 LinearGradient(
                                     colors: [
-                                        Color(red: 0.42, green: 0.20, blue: 0.72),
-                                        Color(red: 0.18, green: 0.08, blue: 0.40)
+                                        Color(red: 0.40, green: 0.18, blue: 0.70),
+                                        Color(red: 0.16, green: 0.06, blue: 0.36)
                                     ],
                                     startPoint: .top,
                                     endPoint: .bottom
                                 )
                             )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                    .stroke(GameTheme.gold.opacity(0.85), lineWidth: 2)
-                            )
+                            .overlay(Circle().stroke(GameTheme.gold.opacity(0.8), lineWidth: 2))
                     )
-                    .shadow(color: GameTheme.gold.opacity(0.4), radius: 8)
+                    .shadow(color: GameTheme.gold.opacity(0.35), radius: 8)
             }
             .buttonStyle(ScalePressStyle())
             .accessibilityLabel("Settings")
         }
     }
 
-    // MARK: - Hero (mascot + 555 slot)
+    // MARK: - Hero
 
     private var heroSection: some View {
-        HStack(alignment: .bottom, spacing: 0) {
-            Image("home_mascot")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: 170, maxHeight: 170)
-                .shadow(color: .black.opacity(0.45), radius: 8, y: 4)
+        HStack(alignment: .center, spacing: 6) {
+            MascotView()
+                .scaleEffect(0.88)
+                .frame(maxWidth: .infinity)
 
-            Image("home_slot_555")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: 200, maxHeight: 150)
-                .shadow(color: GameTheme.gold.opacity(0.55), radius: 12)
-                .offset(x: -8, y: -4)
+            SlotMachineView(
+                reels: [5, 5, 5],
+                spinning: [false, false, false],
+                showLever: true
+            )
+            .frame(maxWidth: 200)
+            .scaleEffect(0.92)
+            .frame(maxWidth: .infinity)
         }
         .padding(.horizontal, 8)
-        .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Feature grid
+    // MARK: - Features (2x2 feel via equal row)
 
     private var featureGrid: some View {
-        HStack(spacing: 12) {
-            HomeFeatureButton(
-                title: "Daily Reward",
-                imageName: "icon_daily_reward"
-            ) {
+        HStack(spacing: 14) {
+            HomeFeatureButton(title: "Daily Reward", systemIcon: "gift.fill", iconColors: [.pink, .orange]) {
                 path.append(AppRoute.dailyReward)
             }
-
-            HomeFeatureButton(
-                title: "Missions",
-                imageName: "icon_missions"
-            ) {
+            HomeFeatureButton(title: "Missions", systemIcon: "trophy.fill", iconColors: [GameTheme.goldLight, GameTheme.goldDark]) {
                 comingSoonTitle = "Missions"
             }
-
-            HomeFeatureButton(
-                title: "Lucky Bonus",
-                imageName: "icon_lucky_bonus"
-            ) {
+            HomeFeatureButton(title: "Lucky Bonus", systemIcon: "rectangle.split.3x1.fill", iconColors: [.red, .orange]) {
                 comingSoonTitle = "Lucky Bonus"
             }
-
-            HomeFeatureButton(
-                title: "Spin Wheel",
-                imageName: "icon_spin_wheel"
-            ) {
+            HomeFeatureButton(title: "Spin Wheel", systemIcon: "target", iconColors: [GameTheme.neonBlue, GameTheme.neonPink]) {
                 comingSoonTitle = "Spin Wheel"
             }
         }
     }
 
-    // MARK: - Bottom tab bar (visual; Home active)
+    // MARK: - Tab bar
 
     private var homeTabBar: some View {
-        HStack {
+        HStack(spacing: 0) {
             tabItem(icon: "house.fill", title: "HOME", active: true) {}
             tabItem(icon: "trophy.fill", title: "ACHIEVEMENTS", active: false) {
                 comingSoonTitle = "Achievements"
@@ -192,89 +156,80 @@ struct HomeView: View {
                 comingSoonTitle = "Profile"
             }
         }
-        .padding(.horizontal, 10)
-        .padding(.top, 12)
-        .padding(.bottom, 10)
+        .padding(.top, 14)
+        .padding(.bottom, 8)
         .background(
-            Rectangle()
-                .fill(Color.black.opacity(0.55))
-                .overlay(
+            UnevenRoundedRectangle(cornerRadii: .init(topLeading: 18, topTrailing: 18), style: .continuous)
+                .fill(Color.black.opacity(0.58))
+                .overlay(alignment: .top) {
                     Rectangle()
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    GameTheme.neonPurple.opacity(0.35),
-                                    Color.clear
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(height: 2),
-                    alignment: .top
-                )
+                        .fill(GameTheme.gold.opacity(0.25))
+                        .frame(height: 1)
+                }
                 .ignoresSafeArea(edges: .bottom)
         )
     }
 
     private func tabItem(icon: String, title: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 5) {
                 Image(systemName: icon)
-                    .font(.system(size: 20, weight: .bold))
+                    .font(.system(size: 20, weight: .semibold))
                 Text(title)
                     .font(.system(size: 10, weight: .bold, design: .rounded))
-                    .tracking(0.4)
+                    .tracking(0.5)
             }
-            .foregroundStyle(active ? GameTheme.gold : GameTheme.gold.opacity(0.45))
-            .shadow(color: active ? GameTheme.gold.opacity(0.6) : .clear, radius: 6)
+            .foregroundStyle(active ? GameTheme.gold : Color.white.opacity(0.35))
+            .shadow(color: active ? GameTheme.gold.opacity(0.55) : .clear, radius: 8)
             .frame(maxWidth: .infinity)
+            .contentShape(Rectangle())
         }
         .buttonStyle(ScalePressStyle())
     }
 }
 
-// MARK: - Feature button
-
 struct HomeFeatureButton: View {
     let title: String
-    let imageName: String
+    let systemIcon: String
+    var iconColors: [Color] = [GameTheme.goldLight, GameTheme.gold]
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(red: 0.32, green: 0.14, blue: 0.58),
-                                    Color(red: 0.12, green: 0.05, blue: 0.30)
+                                    Color(red: 0.30, green: 0.14, blue: 0.55),
+                                    Color(red: 0.12, green: 0.05, blue: 0.28)
                                 ],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
                         )
                         .overlay(
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .stroke(GameTheme.goldGradient, lineWidth: 2)
+                            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .stroke(GameTheme.gold.opacity(0.75), lineWidth: 1.8)
                         )
-                        .shadow(color: GameTheme.gold.opacity(0.35), radius: 6)
+                        .shadow(color: GameTheme.gold.opacity(0.22), radius: 6, y: 2)
 
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(10)
+                    Image(systemName: systemIcon)
+                        .font(.system(size: 26, weight: .bold))
+                        .foregroundStyle(
+                            LinearGradient(colors: iconColors, startPoint: .top, endPoint: .bottom)
+                        )
+                        .shadow(color: iconColors.first?.opacity(0.5) ?? .clear, radius: 4)
                 }
-                .frame(height: 72)
+                .frame(height: 70)
                 .frame(maxWidth: .infinity)
 
                 Text(title)
                     .font(.system(size: 11, weight: .bold, design: .rounded))
                     .foregroundStyle(GameTheme.goldLight)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .minimumScaleFactor(0.7)
             }
         }
         .buttonStyle(ScalePressStyle())

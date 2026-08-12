@@ -7,11 +7,7 @@ struct CoinBalanceView: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            Image("coin_icon")
-                .resizable()
-                .scaledToFit()
-                .frame(width: compact ? 26 : 30, height: compact ? 26 : 30)
-                .shadow(color: GameTheme.gold.opacity(0.7), radius: 4)
+            GoldCoinIcon(size: compact ? 24 : 28)
 
             Text(GameViewModel.formatCoins(balance))
                 .font(.system(size: compact ? 15 : 17, weight: .bold, design: .rounded))
@@ -30,24 +26,24 @@ struct CoinBalanceView: View {
                             endPoint: .bottom
                         )
                     )
-                    .shadow(color: GameTheme.greenButtonTop.opacity(0.6), radius: 4)
+                    .shadow(color: GameTheme.greenButtonTop.opacity(0.55), radius: 4)
             }
         }
-        .padding(.leading, compact ? 8 : 10)
+        .padding(.leading, compact ? 10 : 12)
         .padding(.trailing, showPlus ? 8 : (compact ? 10 : 14))
-        .padding(.vertical, compact ? 5 : 7)
+        .padding(.vertical, compact ? 6 : 8)
         .background(
             Capsule()
-                .fill(Color.black.opacity(0.55))
+                .fill(Color.black.opacity(0.5))
                 .overlay(
                     Capsule()
                         .stroke(
                             LinearGradient(
-                                colors: [GameTheme.goldLight.opacity(0.9), GameTheme.gold.opacity(0.55)],
+                                colors: [GameTheme.goldLight.opacity(0.85), GameTheme.gold.opacity(0.5)],
                                 startPoint: .top,
                                 endPoint: .bottom
                             ),
-                            lineWidth: 1.8
+                            lineWidth: 1.6
                         )
                 )
         )
