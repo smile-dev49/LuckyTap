@@ -18,7 +18,12 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
-            AppTheme.backgroundGradient.ignoresSafeArea()
+            // Other tabs keep theme gradient; Home paints its own city background
+            if tab != .home {
+                AppTheme.backgroundGradient.ignoresSafeArea()
+            } else {
+                Color.black.ignoresSafeArea()
+            }
 
             Group {
                 switch tab {
@@ -113,27 +118,19 @@ struct BottomTabBar: View {
         }
         .padding(.top, 12)
         .padding(.bottom, 20)
-        .background(
-            Rectangle()
-                .fill(.ultraThinMaterial)
-                .overlay(
+        .background {
+            ZStack {
+                Rectangle().fill(.ultraThinMaterial)
+                Rectangle().fill(Color(red: 0.06, green: 0.03, blue: 0.14).opacity(0.72))
+                VStack {
                     Rectangle()
-                        .fill(Color.black.opacity(0.45))
-                )
-                .overlay(
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                colors: [AppTheme.gold.opacity(0.45), AppTheme.gold.opacity(0.08)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .frame(height: 1),
-                    alignment: .top
-                )
-                .ignoresSafeArea(edges: .bottom)
-        )
+                        .fill(AppTheme.gold.opacity(0.4))
+                        .frame(height: 1)
+                    Spacer()
+                }
+            }
+            .ignoresSafeArea(edges: .bottom)
+        }
     }
 
     private func tabButton(_ tab: MainTab, title: String, system: String) -> some View {

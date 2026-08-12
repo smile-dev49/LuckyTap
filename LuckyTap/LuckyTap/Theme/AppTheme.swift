@@ -17,9 +17,9 @@ enum AppTheme {
     static var backgroundGradient: LinearGradient {
         LinearGradient(
             colors: [
-                Color(red: 0.10, green: 0.05, blue: 0.22),
-                deepPurple,
-                Color(red: 0.22, green: 0.10, blue: 0.40)
+                Color(red: 0.06, green: 0.04, blue: 0.16),
+                Color(red: 0.14, green: 0.07, blue: 0.30),
+                Color(red: 0.10, green: 0.05, blue: 0.22)
             ],
             startPoint: .top,
             endPoint: .bottom

@@ -11,46 +11,62 @@ struct CoinBadge: View {
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [Color(red: 0.95, green: 0.95, blue: 0.98), Color(red: 0.7, green: 0.72, blue: 0.78)],
+                            colors: [
+                                Color(red: 1.0, green: 0.92, blue: 0.35),
+                                Color(red: 0.95, green: 0.62, blue: 0.08)
+                            ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 24, height: 24)
-                Text("🪙")
-                    .font(.system(size: 14))
+                    .frame(width: 26, height: 26)
+                    .overlay(Circle().stroke(Color.white.opacity(0.45), lineWidth: 1))
+                    .shadow(color: AppTheme.gold.opacity(0.5), radius: 4)
+                Text("$")
+                    .font(.system(size: 13, weight: .black, design: .rounded))
+                    .foregroundColor(Color(red: 0.45, green: 0.25, blue: 0.05))
             }
 
             Text(GameStore.format(amount))
                 .font(.system(size: 15, weight: .heavy, design: .rounded))
-                .foregroundStyle(AppTheme.goldGradient)
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.45), radius: 2)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
 
             if showPlus {
                 Button(action: { onPlus?() }) {
                     Image(systemName: "plus")
-                        .font(.system(size: 11, weight: .black))
-                        .foregroundColor(.black)
+                        .font(.system(size: 12, weight: .black))
+                        .foregroundColor(.white)
                         .frame(width: 22, height: 22)
-                        .background(AppTheme.goldGradient)
-                        .clipShape(Circle())
-                        .shadow(color: AppTheme.gold.opacity(0.45), radius: 4, y: 1)
+                        .background(
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [AppTheme.neonGreen, Color(red: 0.05, green: 0.55, blue: 0.2)],
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                )
+                        )
+                        .overlay(Circle().stroke(Color.white.opacity(0.35), lineWidth: 1))
+                        .shadow(color: AppTheme.neonGreen.opacity(0.5), radius: 4)
                 }
                 .buttonStyle(PressableButtonStyle())
             }
         }
-        .padding(.leading, 10)
-        .padding(.trailing, showPlus ? 8 : 12)
-        .padding(.vertical, 8)
+        .padding(.leading, 8)
+        .padding(.trailing, showPlus ? 7 : 12)
+        .padding(.vertical, 7)
         .background(
             Capsule()
-                .fill(Color.black.opacity(0.42))
+                .fill(Color.black.opacity(0.55))
                 .overlay(
                     Capsule()
-                        .stroke(AppTheme.gold.opacity(0.6), lineWidth: 1.4)
+                        .stroke(Color.white.opacity(0.18), lineWidth: 1)
                 )
-                .shadow(color: .black.opacity(0.3), radius: 6, y: 2)
+                .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
         )
     }
 }
