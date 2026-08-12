@@ -108,8 +108,9 @@ struct HomeView: View {
             .renderingMode(.original)
             .resizable()
             .scaledToFit()
-            .frame(maxWidth: 260)
-            .frame(height: 110)
+            .frame(maxWidth: 520) // 2× previous 260
+            .frame(maxHeight: 220)
+            .padding(.horizontal, 8)
             .shadow(color: AppTheme.gold.opacity(0.35), radius: 12, y: 2)
     }
 
