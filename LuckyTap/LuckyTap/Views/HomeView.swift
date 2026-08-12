@@ -17,12 +17,17 @@ struct HomeView: View {
 
                 Spacer(minLength: 8)
 
-                LuckyTapLogo(size: 1.0)
+                Image("lucky_tap_logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: 260)
+                    .shadow(color: GameTheme.neonBlue.opacity(0.45), radius: 10)
+                    .shadow(color: .black.opacity(0.35), radius: 4, y: 2)
                     .scaleEffect(appearReady ? 1 : 0.92)
                     .opacity(appearReady ? 1 : 0)
 
                 heroSection
-                    .padding(.top, 10)
+                    .padding(.top, 8)
                     .opacity(appearReady ? 1 : 0)
                     .offset(y: appearReady ? 0 : 12)
 
@@ -108,21 +113,22 @@ struct HomeView: View {
     // MARK: - Hero
 
     private var heroSection: some View {
-        HStack(alignment: .center, spacing: 6) {
-            MascotView()
-                .scaleEffect(0.88)
+        HStack(alignment: .bottom, spacing: 4) {
+            Image("home_mascot")
+                .resizable()
+                .scaledToFit()
+                .frame(maxHeight: 168)
+                .shadow(color: .black.opacity(0.4), radius: 8, y: 4)
                 .frame(maxWidth: .infinity)
 
-            SlotMachineView(
-                reels: [5, 5, 5],
-                spinning: [false, false, false],
-                showLever: true
-            )
-            .frame(maxWidth: 200)
-            .scaleEffect(0.92)
-            .frame(maxWidth: .infinity)
+            Image("home_slot_555")
+                .resizable()
+                .scaledToFit()
+                .frame(maxHeight: 148)
+                .shadow(color: GameTheme.gold.opacity(0.5), radius: 12)
+                .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 12)
     }
 
     // MARK: - Features (2x2 feel via equal row)
