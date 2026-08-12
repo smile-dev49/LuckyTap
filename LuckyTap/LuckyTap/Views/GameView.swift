@@ -17,8 +17,8 @@ struct GameView: View {
 
                 // Main play cluster — kept tight so no empty purple gap
                 VStack(spacing: 14) {
-                    Text("WIN UP TO \(GameStore.format(store.winUpTo))")
-                        .font(.system(size: 13, weight: .black, design: .rounded))
+                    Text("VIRTUAL WIN UP TO \(GameStore.format(store.winUpTo))")
+                        .font(.system(size: 12, weight: .black, design: .rounded))
                         .foregroundColor(AppTheme.gold)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 7)
@@ -50,11 +50,13 @@ struct GameView: View {
                         .padding(.horizontal, 20)
                 }
 
-                Spacer(minLength: 16)
+                Spacer(minLength: 12)
+
+                EntertainmentDisclaimerBar()
 
                 controlsPanel
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 22)
+                    .padding(.bottom, 18)
             }
         }
     }
@@ -103,8 +105,8 @@ struct GameView: View {
 
     private var winBox: some View {
         HStack(spacing: 8) {
-            Text("TOTAL WIN")
-                .font(.system(size: 14, weight: .bold, design: .rounded))
+            Text("TOTAL VIRTUAL WIN")
+                .font(.system(size: 13, weight: .bold, design: .rounded))
                 .foregroundColor(.white.opacity(0.85))
             Spacer()
             Text("🪙")

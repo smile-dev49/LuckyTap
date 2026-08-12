@@ -2,8 +2,6 @@ import SwiftUI
 
 struct CoinBadge: View {
     let amount: Int
-    var showPlus: Bool = false
-    var onPlus: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 8) {
@@ -22,8 +20,9 @@ struct CoinBadge: View {
                     .frame(width: 26, height: 26)
                     .overlay(Circle().stroke(Color.white.opacity(0.45), lineWidth: 1))
                     .shadow(color: AppTheme.gold.opacity(0.5), radius: 4)
-                Text("$")
-                    .font(.system(size: 13, weight: .black, design: .rounded))
+                // Virtual coin mark — not a real currency symbol
+                Text("V")
+                    .font(.system(size: 12, weight: .black, design: .rounded))
                     .foregroundColor(Color(red: 0.45, green: 0.25, blue: 0.05))
             }
 
@@ -33,31 +32,8 @@ struct CoinBadge: View {
                 .shadow(color: .black.opacity(0.45), radius: 2)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
-
-            if showPlus {
-                Button(action: { onPlus?() }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 12, weight: .black))
-                        .foregroundColor(.white)
-                        .frame(width: 22, height: 22)
-                        .background(
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [AppTheme.neonGreen, Color(red: 0.05, green: 0.55, blue: 0.2)],
-                                        startPoint: .top,
-                                        endPoint: .bottom
-                                    )
-                                )
-                        )
-                        .overlay(Circle().stroke(Color.white.opacity(0.35), lineWidth: 1))
-                        .shadow(color: AppTheme.neonGreen.opacity(0.5), radius: 4)
-                }
-                .buttonStyle(PressableButtonStyle())
-            }
         }
-        .padding(.leading, 8)
-        .padding(.trailing, showPlus ? 7 : 12)
+        .padding(.horizontal, 12)
         .padding(.vertical, 7)
         .background(
             Capsule()
@@ -68,6 +44,7 @@ struct CoinBadge: View {
                 )
                 .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
         )
+        .accessibilityLabel("Virtual coins \(GameStore.format(amount))")
     }
 }
 

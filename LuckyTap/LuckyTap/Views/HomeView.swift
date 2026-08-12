@@ -49,7 +49,10 @@ struct HomeView: View {
                 .opacity(appeared ? 1 : 0)
                 .offset(y: appeared ? 0 : 22)
 
-            Spacer(minLength: 108)
+            EntertainmentDisclaimerBar()
+                .padding(.top, 10)
+
+            Spacer(minLength: 100)
         }
         .onAppear {
             withAnimation(.spring(response: 0.7, dampingFraction: 0.8)) {
@@ -72,9 +75,7 @@ struct HomeView: View {
 
     private var topBar: some View {
         HStack {
-            CoinBadge(amount: store.player.coins, showPlus: true) {
-                store.showToast("Coins are earned in-game")
-            }
+            CoinBadge(amount: store.player.coins)
 
             Spacer()
 
@@ -174,9 +175,9 @@ struct HomeView: View {
                 Spacer()
                 HStack(spacing: 8) {
                     Text("✨")
-                    Text("WIN BIG WITH 555")
-                        .font(.system(size: 12, weight: .black, design: .rounded))
-                        .tracking(1.2)
+                    Text("PLAY FOR FUN • VIRTUAL 555")
+                        .font(.system(size: 11, weight: .black, design: .rounded))
+                        .tracking(1.0)
                     Text("✨")
                 }
                 .foregroundColor(AppTheme.gold)

@@ -16,6 +16,11 @@ struct RootView: View {
     @State private var showDailyReward = false
     @State private var showMissions = false
     @State private var showSplash = true
+    @State private var showComplianceGate = false
+
+    private var showsMainUI: Bool {
+        !showSplash && store.hasAcceptedCompliance
+    }
 
     var body: some View {
         ZStack {
@@ -38,7 +43,7 @@ struct RootView: View {
                     ProfileView()
                 }
             }
-            .opacity(showSplash ? 0 : 1)
+            .opacity(showsMainUI ? 1 : 0)
 
             VStack {
                 Spacer()
@@ -46,7 +51,7 @@ struct RootView: View {
                     .padding(.horizontal, 14)
                     .padding(.bottom, 8)
             }
-            .opacity(showSplash ? 0 : 1)
+            .opacity(showsMainUI ? 1 : 0)
 
             if let toast = store.toast {
                 VStack {
@@ -65,10 +70,24 @@ struct RootView: View {
                 .zIndex(20)
             }
 
+            if showComplianceGate && !store.hasAcceptedCompliance {
+                ComplianceGateView {
+                    store.acceptCompliance()
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        showComplianceGate = false
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(40)
+            }
+
             if showSplash {
                 SplashView {
                     withAnimation(.easeInOut(duration: 0.45)) {
                         showSplash = false
+                        if !store.hasAcceptedCompliance {
+                            showComplianceGate = true
+                        }
                     }
                 }
                 .transition(.opacity)

@@ -3,6 +3,9 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject private var store: GameStore
     var onClose: () -> Void
+    @State private var showPrivacy = false
+    @State private var showTerms = false
+    @State private var confirmReset = false
 
     var body: some View {
         ZStack {
@@ -54,13 +57,20 @@ struct SettingsView: View {
                             Text("About")
                                 .font(.system(size: 16, weight: .heavy, design: .rounded))
                                 .foregroundColor(AppTheme.gold)
-                            Text("Lucky Tap — 555 Slots")
+                            Text("\(AppLegal.appName) — Entertainment Slots")
                                 .font(.system(size: 15, weight: .bold))
                                 .foregroundColor(.white)
-                            Text("Virtual coins only. Local play. SDK-ready later.")
+                            Text(AppLegal.shortDisclaimer)
                                 .font(.subheadline)
-                                .foregroundColor(.white.opacity(0.65))
+                                .foregroundColor(.white.opacity(0.7))
                                 .fixedSize(horizontal: false, vertical: true)
+                            Text(AppLegal.ageNotice)
+                                .font(.caption.weight(.semibold))
+                                .foregroundColor(AppTheme.gold.opacity(0.9))
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text("Version 1.0")
+                                .font(.caption2)
+                                .foregroundColor(.white.opacity(0.45))
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(16)
@@ -68,10 +78,31 @@ struct SettingsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                         .goldBorder(cornerRadius: 18)
 
-                        Button(role: .destructive) {
-                            store.resetProgress()
+                        VStack(spacing: 0) {
+                            legalButton("Privacy Notice", system: "hand.raised.fill") { showPrivacy = true }
+                            Divider().background(Color.white.opacity(0.12))
+                            legalButton("Terms of Use", system: "doc.text.fill") { showTerms = true }
+                            Divider().background(Color.white.opacity(0.12))
+                            if let url = AppLegal.privacyPolicyURL {
+                                Link(destination: url) {
+                                    legalLabel("Online Privacy Policy", system: "safari.fill")
+                                }
+                            }
+                            Divider().background(Color.white.opacity(0.12))
+                            if let mail = URL(string: "mailto:\(AppLegal.supportEmail)") {
+                                Link(destination: mail) {
+                                    legalLabel("Contact Support", system: "envelope.fill")
+                                }
+                            }
+                        }
+                        .background(panelFill)
+                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .goldBorder(cornerRadius: 18)
+
+                        Button {
+                            confirmReset = true
                         } label: {
-                            Text("Reset Progress")
+                            Text("Reset Local Progress")
                                 .font(.headline.bold())
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -84,18 +115,33 @@ struct SettingsView: View {
                                     )
                                 )
                                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
-                                )
                         }
                         .buttonStyle(PressableButtonStyle())
-                        .padding(.top, 4)
+
+                        Text("Progress is stored only on this device. Reset permanently clears virtual coins and stats.")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.45))
+                            .multilineTextAlignment(.center)
                     }
                     .padding(.horizontal, 18)
                     .padding(.bottom, 28)
                 }
             }
+        }
+        .sheet(isPresented: $showPrivacy) {
+            legalSheet(title: "Privacy Notice", bodyText: AppLegal.privacySummary)
+        }
+        .sheet(isPresented: $showTerms) {
+            legalSheet(title: "Terms of Use", bodyText: AppLegal.termsSummary)
+        }
+        .alert("Reset Local Progress?", isPresented: $confirmReset) {
+            Button("Cancel", role: .cancel) {}
+            Button("Reset", role: .destructive) {
+                store.resetProgress()
+                store.showToast("Local progress reset")
+            }
+        } message: {
+            Text("This deletes virtual coins, missions, and stats saved on this device. It cannot be undone.")
         }
     }
 
@@ -122,5 +168,51 @@ struct SettingsView: View {
         }
         .tint(AppTheme.neonGreen)
         .padding(16)
+    }
+
+    private func legalButton(_ title: String, system: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            legalLabel(title, system: system)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func legalLabel(_ title: String, system: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: system)
+                .foregroundStyle(AppTheme.goldGradient)
+                .frame(width: 22)
+            Text(title)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.white)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.bold))
+                .foregroundColor(.white.opacity(0.35))
+        }
+        .padding(16)
+    }
+
+    private func legalSheet(title: String, bodyText: String) -> some View {
+        NavigationStack {
+            ScrollView {
+                Text(bodyText)
+                    .font(.body)
+                    .foregroundColor(.primary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+            }
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        showPrivacy = false
+                        showTerms = false
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium, .large])
     }
 }

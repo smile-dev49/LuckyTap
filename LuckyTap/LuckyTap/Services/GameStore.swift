@@ -12,12 +12,15 @@ final class GameStore: ObservableObject {
     @Published var statusMessage = "TAP TO SPIN"
     @Published var autoSpin = false
     @Published var toast: String?
+    @Published var hasAcceptedCompliance: Bool
 
     private let defaultsKey = "lucky_tap_player_v1"
+    private let complianceKey = "lucky_tap_compliance_v1"
     private var spinTask: Task<Void, Never>?
     private var pendingResult: [SlotSymbol]?
 
     init() {
+        hasAcceptedCompliance = UserDefaults.standard.bool(forKey: complianceKey)
         if let data = UserDefaults.standard.data(forKey: defaultsKey),
            let decoded = try? JSONDecoder().decode(PlayerSnapshot.self, from: data) {
             player = decoded
@@ -38,6 +41,11 @@ final class GameStore: ObservableObject {
 
     var canAffordBet: Bool {
         player.coins >= player.bet
+    }
+
+    func acceptCompliance() {
+        hasAcceptedCompliance = true
+        UserDefaults.standard.set(true, forKey: complianceKey)
     }
 
     func save() {

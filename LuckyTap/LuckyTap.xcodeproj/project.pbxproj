@@ -28,6 +28,8 @@
 		A10000000000000000000013 /* HomeControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* HomeControls.swift */; };
 		A10000000000000000000014 /* DailyRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* DailyRewardView.swift */; };
 		A10000000000000000000015 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* MissionsView.swift */; };
+		A10000000000000000000016 /* AppLegal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* AppLegal.swift */; };
+		A10000000000000000000017 /* ComplianceGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000018 /* ComplianceGateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		B10000000000000000000014 /* HomeControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControls.swift; sourceTree = "<group>"; };
 		B10000000000000000000015 /* DailyRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRewardView.swift; sourceTree = "<group>"; };
 		B10000000000000000000016 /* MissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
+		B10000000000000000000017 /* AppLegal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLegal.swift; sourceTree = "<group>"; };
+		B10000000000000000000018 /* ComplianceGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplianceGateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000002 /* AppTheme.swift */,
+				B10000000000000000000017 /* AppLegal.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000000000000000000012 /* SplashView.swift */,
+				B10000000000000000000018 /* ComplianceGateView.swift */,
 				B10000000000000000000007 /* RootView.swift */,
 				B10000000000000000000008 /* HomeView.swift */,
 				B10000000000000000000009 /* GameView.swift */,
@@ -221,6 +227,8 @@
 			files = (
 				A10000000000000000000001 /* LuckyTapApp.swift in Sources */,
 				A10000000000000000000002 /* AppTheme.swift in Sources */,
+				A10000000000000000000016 /* AppLegal.swift in Sources */,
+				A10000000000000000000017 /* ComplianceGateView.swift in Sources */,
 				A10000000000000000000003 /* SlotSymbol.swift in Sources */,
 				A10000000000000000000004 /* PlayerModels.swift in Sources */,
 				A10000000000000000000005 /* SlotEngine.swift in Sources */,
@@ -290,6 +298,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Tap";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -320,6 +329,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Lucky Tap";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
