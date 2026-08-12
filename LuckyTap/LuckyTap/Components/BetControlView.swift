@@ -10,31 +10,31 @@ struct BetControlView: View {
     var body: some View {
         VStack(spacing: 6) {
             Text("BET")
-                .font(.system(size: 12, weight: .bold, design: .rounded))
+                .font(.system(size: 12, weight: .black, design: .rounded))
                 .foregroundStyle(GameTheme.gold)
-                .tracking(1.5)
+                .tracking(2)
 
-            HStack(spacing: 10) {
+            HStack(spacing: 8) {
                 betStepButton(symbol: "minus", enabled: canDecrease, action: onDecrease)
 
                 Text(GameViewModel.formatCoins(bet))
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
                     .monospacedDigit()
-                    .frame(minWidth: 72)
+                    .frame(minWidth: 64)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                    .minimumScaleFactor(0.55)
 
                 betStepButton(symbol: "plus", enabled: canIncrease, action: onIncrease)
             }
-            .padding(.horizontal, 10)
+            .padding(.horizontal, 8)
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(Color.black.opacity(0.45))
+                    .fill(Color.black.opacity(0.5))
                     .overlay(
                         Capsule()
-                            .stroke(GameTheme.gold.opacity(0.7), lineWidth: 1.5)
+                            .stroke(GameTheme.goldGradient, lineWidth: 1.8)
                     )
             )
         }
@@ -43,7 +43,7 @@ struct BetControlView: View {
     private func betStepButton(symbol: String, enabled: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
-                .font(.system(size: 14, weight: .black))
+                .font(.system(size: 13, weight: .black))
                 .foregroundStyle(.white)
                 .frame(width: 30, height: 30)
                 .background(
@@ -51,8 +51,9 @@ struct BetControlView: View {
                         .fill(GameTheme.orangeButtonGradient)
                         .overlay(
                             Circle()
-                                .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                                .stroke(Color.white.opacity(0.4), lineWidth: 1)
                         )
+                        .shadow(color: GameTheme.orangeButtonTop.opacity(0.5), radius: 4)
                 )
                 .opacity(enabled ? 1 : 0.4)
         }

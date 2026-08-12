@@ -12,6 +12,18 @@ struct SettingsView: View {
             VStack(spacing: 20) {
                 header
 
+                // Branding badge
+                OptionalAssetImage(name: "lucky_tap_logo") {
+                    LuckyTapLogo(size: 0.55)
+                }
+                .frame(width: 120, height: 120)
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                        .stroke(GameTheme.goldGradient, lineWidth: 3)
+                )
+                .shadow(color: GameTheme.gold.opacity(0.45), radius: 12)
+
                 VStack(spacing: 14) {
                     settingsToggleRow(
                         title: "Sound",
@@ -37,18 +49,26 @@ struct SettingsView: View {
                     Text("Best Win")
                         .font(.system(size: 13, weight: .semibold, design: .rounded))
                         .foregroundStyle(.white.opacity(0.7))
-                    Text(GameViewModel.formatCoins(viewModel.bestWin))
-                        .font(.system(size: 28, weight: .black, design: .rounded))
-                        .foregroundStyle(GameTheme.goldGradient)
+                    HStack(spacing: 8) {
+                        OptionalAssetImage(name: "coin_icon") {
+                            Image(systemName: "dollarsign.circle.fill")
+                                .foregroundStyle(GameTheme.gold)
+                        }
+                        .frame(width: 24, height: 24)
+
+                        Text(GameViewModel.formatCoins(viewModel.bestWin))
+                            .font(.system(size: 28, weight: .black, design: .rounded))
+                            .foregroundStyle(GameTheme.goldGradient)
+                    }
                 }
                 .padding(.vertical, 16)
                 .frame(maxWidth: .infinity)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.black.opacity(0.4))
+                        .fill(Color.black.opacity(0.45))
                         .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(GameTheme.gold.opacity(0.5), lineWidth: 1.5)
+                                .stroke(GameTheme.gold.opacity(0.55), lineWidth: 1.8)
                         )
                 )
                 .padding(.horizontal, 20)
@@ -97,8 +117,9 @@ struct SettingsView: View {
             Spacer()
 
             Text("SETTINGS")
-                .font(.system(size: 20, weight: .black, design: .rounded))
+                .font(.system(size: 22, weight: .black, design: .rounded))
                 .foregroundStyle(.white)
+                .shadow(color: GameTheme.gold.opacity(0.35), radius: 3)
 
             Spacer()
 
@@ -133,10 +154,10 @@ struct SettingsView: View {
         .padding(.vertical, 14)
         .background(
             RoundedRectangle(cornerRadius: 14)
-                .fill(Color.black.opacity(0.4))
+                .fill(Color.black.opacity(0.45))
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
-                        .stroke(GameTheme.gold.opacity(0.45), lineWidth: 1.5)
+                        .stroke(GameTheme.gold.opacity(0.5), lineWidth: 1.5)
                 )
         )
     }

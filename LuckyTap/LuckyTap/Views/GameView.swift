@@ -17,10 +17,10 @@ struct GameView: View {
                     .padding(.top, 8)
 
                 winBanner
-                    .padding(.top, 16)
-                    .padding(.horizontal, 28)
+                    .padding(.top, 14)
+                    .padding(.horizontal, 24)
 
-                Spacer(minLength: 12)
+                Spacer(minLength: 8)
 
                 ZStack {
                     SlotMachineView(
@@ -28,29 +28,30 @@ struct GameView: View {
                         spinning: viewModel.spinningReels,
                         showLever: true
                     )
-                    .frame(maxWidth: 340)
-                    .padding(.horizontal, 24)
+                    .frame(maxWidth: 350)
+                    .padding(.horizontal, 20)
 
                     if viewModel.showLucky555 {
                         lucky555Overlay
                     }
                 }
 
-                Text(viewModel.isSpinning ? "SPINNING..." : "TAP TO SPIN")
-                    .font(.system(size: 13, weight: .bold, design: .rounded))
-                    .foregroundStyle(GameTheme.gold)
-                    .tracking(1.2)
-                    .padding(.top, 10)
+                Text(viewModel.isSpinning ? "SPINNING..." : "TAP TO STOP")
+                    .font(.system(size: 14, weight: .black, design: .rounded))
+                    .foregroundStyle(GameTheme.neonBlue)
+                    .shadow(color: GameTheme.neonBlue.opacity(0.8), radius: 6)
+                    .tracking(1.4)
+                    .padding(.top, 12)
 
                 totalWinPanel
-                    .padding(.top, 14)
-                    .padding(.horizontal, 36)
+                    .padding(.top, 12)
+                    .padding(.horizontal, 32)
 
-                Spacer(minLength: 16)
+                Spacer(minLength: 12)
 
                 bottomControls
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 24)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 28)
             }
 
             if coinBurst {
@@ -83,15 +84,37 @@ struct GameView: View {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 18, weight: .bold))
                     .foregroundStyle(GameTheme.gold)
-                    .frame(width: 42, height: 42)
+                    .frame(width: 44, height: 44)
                     .background(
                         Circle()
-                            .fill(Color.black.opacity(0.35))
-                            .overlay(Circle().stroke(GameTheme.gold.opacity(0.55), lineWidth: 1.5))
+                            .fill(Color.black.opacity(0.4))
+                            .overlay(Circle().stroke(GameTheme.gold.opacity(0.7), lineWidth: 2))
                     )
             }
             .buttonStyle(ScalePressStyle())
             .accessibilityLabel("Back")
+
+            Spacer()
+
+            // Decorative level chip to match reference chrome (visual only for MVP)
+            HStack(spacing: 4) {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(GameTheme.gold)
+                    .font(.system(size: 12))
+                Text("555")
+                    .font(.system(size: 13, weight: .black, design: .rounded))
+                    .foregroundStyle(GameTheme.gold)
+                Image(systemName: "star.fill")
+                    .foregroundStyle(GameTheme.gold)
+                    .font(.system(size: 12))
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(
+                Capsule()
+                    .fill(Color.black.opacity(0.4))
+                    .overlay(Capsule().stroke(GameTheme.gold.opacity(0.55), lineWidth: 1.5))
+            )
 
             Spacer()
 
@@ -101,57 +124,76 @@ struct GameView: View {
 
     private var winBanner: some View {
         Text("WIN UP TO \(GameViewModel.formatCoins(GameConfiguration.maxWinBannerAmount))")
-            .font(.system(size: 16, weight: .black, design: .rounded))
-            .foregroundStyle(GameTheme.goldGradient)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 10)
+            .font(.system(size: 17, weight: .black, design: .rounded))
+            .foregroundStyle(
+                LinearGradient(
+                    colors: [GameTheme.goldLight, Color.white, GameTheme.gold],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .shadow(color: GameTheme.gold.opacity(0.7), radius: 4)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
             .frame(maxWidth: .infinity)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.black.opacity(0.4))
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.45, green: 0.08, blue: 0.22),
+                                Color(red: 0.25, green: 0.05, blue: 0.35)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(GameTheme.goldGradient, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .stroke(GameTheme.goldGradient, lineWidth: 2.5)
                     )
             )
-            .neonGlow(GameTheme.gold, radius: 8)
+            .neonGlow(GameTheme.gold, radius: 10)
     }
 
     private var totalWinPanel: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 6) {
             Text("TOTAL WIN")
-                .font(.system(size: 12, weight: .bold, design: .rounded))
-                .foregroundStyle(GameTheme.gold.opacity(0.9))
-                .tracking(1.5)
+                .font(.system(size: 13, weight: .bold, design: .rounded))
+                .foregroundStyle(GameTheme.gold.opacity(0.95))
+                .tracking(2)
 
-            HStack(spacing: 8) {
-                Image(systemName: "dollarsign.circle.fill")
-                    .foregroundStyle(GameTheme.gold)
-                    .font(.system(size: 22))
+            HStack(spacing: 10) {
+                OptionalAssetImage(name: "coin_icon") {
+                    Image(systemName: "dollarsign.circle.fill")
+                        .foregroundStyle(GameTheme.gold)
+                }
+                .frame(width: 28, height: 28)
 
                 Text(GameViewModel.formatCoins(animatedWin))
-                    .font(.system(size: 34, weight: .black, design: .rounded))
+                    .font(.system(size: 36, weight: .black, design: .rounded))
                     .foregroundStyle(GameTheme.goldGradient)
                     .monospacedDigit()
-                    .scaleEffect(viewModel.winPulse ? 1.08 : 1.0)
+                    .scaleEffect(viewModel.winPulse ? 1.1 : 1.0)
                     .animation(.spring(response: 0.4, dampingFraction: 0.5), value: viewModel.winPulse)
             }
         }
-        .padding(.vertical, 12)
-        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
+        .padding(.horizontal, 22)
         .frame(maxWidth: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.black.opacity(0.45))
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .fill(Color.black.opacity(0.5))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .stroke(GameTheme.gold.opacity(0.75), lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(GameTheme.goldGradient, lineWidth: 2.5)
                 )
         )
+        .shadow(color: GameTheme.gold.opacity(0.35), radius: 10)
     }
 
     private var bottomControls: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: 8) {
             BetControlView(
                 bet: viewModel.selectedBet,
                 canDecrease: viewModel.canDecreaseBet && !viewModel.isSpinning,
@@ -159,29 +201,47 @@ struct GameView: View {
                 onDecrease: { viewModel.decreaseBet() },
                 onIncrease: { viewModel.increaseBet() }
             )
+            .frame(width: 128)
 
-            Spacer(minLength: 4)
+            Spacer(minLength: 0)
 
             RoundCasinoButton(
                 title: "TAP",
-                size: 118,
+                size: 126,
                 isEnabled: !viewModel.isSpinning && viewModel.canAffordBet
             ) {
                 viewModel.tap()
             }
 
-            Spacer(minLength: 4)
+            Spacer(minLength: 0)
 
-            // Spacer matching bet control width for visual balance (MVP: no Auto)
-            Color.clear
-                .frame(width: 120, height: 1)
+            // Visual AUTO OFF chip matching reference layout (disabled for MVP)
+            VStack(spacing: 6) {
+                Text("AUTO")
+                    .font(.system(size: 11, weight: .bold, design: .rounded))
+                    .foregroundStyle(GameTheme.gold.opacity(0.85))
+                    .tracking(1)
+
+                Text("OFF")
+                    .font(.system(size: 14, weight: .black, design: .rounded))
+                    .foregroundStyle(.white.opacity(0.75))
+                    .frame(width: 64, height: 34)
+                    .background(
+                        Capsule()
+                            .fill(Color.black.opacity(0.45))
+                            .overlay(Capsule().stroke(GameTheme.gold.opacity(0.45), lineWidth: 1.5))
+                    )
+            }
+            .frame(width: 128)
+            .opacity(0.85)
+            .allowsHitTesting(false)
         }
     }
 
     private var lucky555Overlay: some View {
         VStack(spacing: 8) {
             Text("LUCKY 555!")
-                .font(.system(size: 36, weight: .black, design: .rounded))
+                .font(.system(size: 38, weight: .black, design: .rounded))
                 .foregroundStyle(
                     LinearGradient(
                         colors: [GameTheme.goldLight, .white, GameTheme.gold],
@@ -189,22 +249,22 @@ struct GameView: View {
                         endPoint: .bottom
                     )
                 )
-                .shadow(color: GameTheme.neonBlue, radius: 10)
-                .shadow(color: GameTheme.gold, radius: 16)
-                .scaleEffect(viewModel.showLucky555 ? 1.05 : 0.8)
+                .shadow(color: GameTheme.neonBlue, radius: 12)
+                .shadow(color: GameTheme.gold, radius: 18)
+                .scaleEffect(viewModel.showLucky555 ? 1.08 : 0.8)
                 .opacity(viewModel.showLucky555 ? 1 : 0)
                 .animation(.spring(response: 0.45, dampingFraction: 0.55), value: viewModel.showLucky555)
         }
-        .padding(20)
+        .padding(22)
         .background(
-            RoundedRectangle(cornerRadius: 18)
-                .fill(Color.black.opacity(0.55))
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.black.opacity(0.6))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 18)
-                        .stroke(GameTheme.gold, lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(GameTheme.gold, lineWidth: 3)
                 )
         )
-        .neonGlow(GameTheme.gold, radius: 18)
+        .neonGlow(GameTheme.gold, radius: 20)
     }
 
     private func animateWin(to value: Int) {

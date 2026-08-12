@@ -8,6 +8,7 @@ struct DailyRewardView: View {
     private let columns = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10)
     ]
 
@@ -15,28 +16,43 @@ struct DailyRewardView: View {
         ZStack {
             VegasBackground()
 
-            VStack(spacing: 16) {
+            VStack(spacing: 14) {
                 header
 
+                // Tab chrome matching reference (Daily active; Missions visual-only)
+                HStack(spacing: 0) {
+                    tabChip(title: "DAILY REWARD", active: true)
+                    tabChip(title: "MISSIONS", active: false)
+                }
+                .padding(4)
+                .background(
+                    Capsule()
+                        .fill(Color.black.opacity(0.4))
+                        .overlay(Capsule().stroke(GameTheme.gold.opacity(0.35), lineWidth: 1))
+                )
+                .padding(.horizontal, 20)
+
                 Text("Daily Login Streak")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                    .font(.system(size: 22, weight: .black, design: .rounded))
                     .foregroundStyle(.white)
+                    .shadow(color: GameTheme.neonBlue.opacity(0.5), radius: 4)
 
                 Text("Come back every day for bigger rewards!")
                     .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.7))
+                    .foregroundStyle(.white.opacity(0.72))
 
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(0..<viewModel.dailyRewards.count, id: \.self) { index in
                         dayCard(dayIndex: index)
+                            .gridCellColumns(index == 6 ? 2 : 1)
                     }
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
+                .padding(.horizontal, 14)
+                .padding(.top, 4)
 
                 if let claimMessage {
                     Text(claimMessage)
-                        .font(.system(size: 15, weight: .bold, design: .rounded))
+                        .font(.system(size: 16, weight: .black, design: .rounded))
                         .foregroundStyle(GameTheme.gold)
                         .transition(.scale.combined(with: .opacity))
                 }
@@ -45,7 +61,7 @@ struct DailyRewardView: View {
                     title: viewModel.canClaimDailyReward ? "CLAIM" : "CLAIMED",
                     style: .green,
                     isEnabled: viewModel.canClaimDailyReward,
-                    fontSize: 26,
+                    fontSize: 28,
                     verticalPadding: 16
                 ) {
                     let amount = viewModel.claimDailyReward()
@@ -55,10 +71,11 @@ struct DailyRewardView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 40)
-                .padding(.top, 12)
+                .padding(.horizontal, 36)
+                .padding(.top, 8)
+                .neonGlow(GameTheme.greenButtonTop, radius: 12)
 
-                Spacer()
+                Spacer(minLength: 8)
             }
             .padding(.top, 8)
         }
@@ -89,10 +106,17 @@ struct DailyRewardView: View {
 
             HStack(spacing: 8) {
                 Image(systemName: "gift.fill")
-                    .foregroundStyle(GameTheme.gold)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [Color.pink, Color.orange],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
                 Text("REWARDS")
-                    .font(.system(size: 20, weight: .black, design: .rounded))
+                    .font(.system(size: 22, weight: .black, design: .rounded))
                     .foregroundStyle(.white)
+                    .shadow(color: GameTheme.gold.opacity(0.4), radius: 3)
             }
 
             Spacer()
@@ -100,6 +124,29 @@ struct DailyRewardView: View {
             CoinBalanceView(balance: viewModel.coinBalance, compact: true)
         }
         .padding(.horizontal, 16)
+    }
+
+    private func tabChip(title: String, active: Bool) -> some View {
+        Text(title)
+            .font(.system(size: 12, weight: .black, design: .rounded))
+            .foregroundStyle(active ? .white : .white.opacity(0.45))
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(
+                Capsule()
+                    .fill(
+                        active
+                        ? LinearGradient(
+                            colors: [
+                                Color(red: 0.55, green: 0.25, blue: 0.85),
+                                Color(red: 0.30, green: 0.10, blue: 0.55)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                          )
+                        : LinearGradient(colors: [Color.clear, Color.clear], startPoint: .top, endPoint: .bottom)
+                    )
+            )
     }
 
     private func dayCard(dayIndex: Int) -> some View {
@@ -112,9 +159,12 @@ struct DailyRewardView: View {
                 .foregroundStyle(GameTheme.gold)
 
             ZStack {
-                Image(systemName: "bitcoinsign.circle.fill")
-                    .font(.system(size: 28))
-                    .foregroundStyle(GameTheme.goldGradient)
+                OptionalAssetImage(name: "coin_icon") {
+                    Image(systemName: "bitcoinsign.circle.fill")
+                        .font(.system(size: 28))
+                        .foregroundStyle(GameTheme.goldGradient)
+                }
+                .frame(width: 34, height: 34)
 
                 switch status {
                 case .claimed:
@@ -122,10 +172,11 @@ struct DailyRewardView: View {
                         .font(.system(size: 18, weight: .bold))
                         .foregroundStyle(Color.green)
                         .offset(x: 16, y: 14)
+                        .shadow(color: .green.opacity(0.6), radius: 3)
                 case .locked:
                     Image(systemName: "lock.fill")
                         .font(.system(size: 12, weight: .bold))
-                        .foregroundStyle(.white.opacity(0.85))
+                        .foregroundStyle(.white.opacity(0.9))
                         .offset(x: 16, y: 14)
                 case .available:
                     EmptyView()
@@ -139,14 +190,25 @@ struct DailyRewardView: View {
                 .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 100)
+        .frame(height: 104)
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .fill(
                     status == .available
-                    ? Color(red: 0.28, green: 0.14, blue: 0.48).opacity(0.95)
-                    : Color.black.opacity(0.4)
+                    ? LinearGradient(
+                        colors: [
+                            Color(red: 0.38, green: 0.18, blue: 0.62),
+                            Color(red: 0.16, green: 0.06, blue: 0.34)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                      )
+                    : LinearGradient(
+                        colors: [Color.black.opacity(0.45), Color.black.opacity(0.35)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                      )
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -156,7 +218,7 @@ struct DailyRewardView: View {
                         )
                 )
         )
-        .shadow(color: status == .available ? GameTheme.gold.opacity(0.55) : .clear, radius: 8)
-        .opacity(status == .locked ? 0.65 : 1)
+        .shadow(color: status == .available ? GameTheme.gold.opacity(0.6) : .clear, radius: 10)
+        .opacity(status == .locked ? 0.7 : 1)
     }
 }

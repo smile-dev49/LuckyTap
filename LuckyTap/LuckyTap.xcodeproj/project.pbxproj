@@ -30,6 +30,7 @@
 		A10000000000000000000015 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* Assets.xcassets */; };
 		A10000000000000000000016 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* Preview Assets.xcassets */; };
 		A10000000000000000000017 /* OptionalAssetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000018 /* OptionalAssetImage.swift */; };
+		A10000000000000000000018 /* VegasChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000019 /* VegasChrome.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		A20000000000000000000016 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A20000000000000000000017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000000000000000000018 /* OptionalAssetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalAssetImage.swift; sourceTree = "<group>"; };
+		A20000000000000000000019 /* VegasChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VegasChrome.swift; sourceTree = "<group>"; };
 		A30000000000000000000001 /* LuckyTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuckyTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				A20000000000000000000003 /* GameTheme.swift */,
+				A20000000000000000000019 /* VegasChrome.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				A10000000000000000000013 /* SoundManager.swift in Sources */,
 				A10000000000000000000014 /* HapticManager.swift in Sources */,
 				A10000000000000000000017 /* OptionalAssetImage.swift in Sources */,
+				A10000000000000000000018 /* VegasChrome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

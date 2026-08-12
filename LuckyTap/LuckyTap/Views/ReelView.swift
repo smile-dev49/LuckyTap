@@ -11,47 +11,61 @@ struct ReelView: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .fill(
                     LinearGradient(
                         colors: [
                             Color.white,
-                            Color(red: 0.94, green: 0.94, blue: 0.98)
+                            Color(red: 0.95, green: 0.95, blue: 0.98)
                         ],
                         startPoint: .top,
                         endPoint: .bottom
                     )
                 )
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .stroke(Color.black.opacity(0.08), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .stroke(Color.black.opacity(0.1), lineWidth: 1)
                 )
-                .shadow(color: .black.opacity(0.25), radius: 3, y: 2)
+                .shadow(color: .black.opacity(0.28), radius: 3, y: 2)
 
-            // Vertical spin blur suggestion while spinning
             if isSpinning {
-                VStack(spacing: 4) {
+                VStack(spacing: 2) {
                     ForEach(0..<3, id: \.self) { i in
                         Text("\(spinPreview(offset: i))")
-                            .font(.system(size: 28, weight: .black, design: .serif))
-                            .foregroundStyle(GameTheme.reelNumber.opacity(0.35 - Double(i) * 0.08))
+                            .font(.system(size: 30, weight: .black, design: .serif))
+                            .foregroundStyle(GameTheme.reelNumber.opacity(0.32 - Double(i) * 0.07))
                     }
                 }
-                .blur(radius: 1.2)
-                .opacity(0.7)
+                .blur(radius: 1.4)
+                .opacity(0.75)
             }
 
             Text("\(value)")
-                .font(.system(size: isSpecial && emphasizeFive ? 54 : 48, weight: .black, design: .serif))
-                .foregroundStyle(GameTheme.reelNumber)
-                .shadow(color: isSpecial ? GameTheme.reelNumber.opacity(0.45) : .clear, radius: 6)
-                .scaleEffect(isSpinning ? 0.92 : 1.0)
-                .offset(y: isSpinning ? 2 : 0)
-                .animation(isSpinning ? .linear(duration: 0.08).repeatForever(autoreverses: true) : .easeOut(duration: 0.15), value: isSpinning)
+                .font(.system(size: isSpecial && emphasizeFive ? 58 : 50, weight: .black, design: .serif))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 1.0, green: 0.25, blue: 0.25),
+                            GameTheme.reelNumber,
+                            Color(red: 0.65, green: 0.0, blue: 0.08)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .shadow(color: isSpecial ? GameTheme.reelNumber.opacity(0.55) : .clear, radius: 8)
+                .scaleEffect(isSpinning ? 0.9 : 1.0)
+                .offset(y: isSpinning ? 3 : 0)
+                .animation(
+                    isSpinning
+                    ? .linear(duration: 0.08).repeatForever(autoreverses: true)
+                    : .easeOut(duration: 0.15),
+                    value: isSpinning
+                )
                 .accessibilityLabel("Reel \(value)")
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 110)
+        .frame(height: 118)
         .clipped()
     }
 
@@ -67,20 +81,22 @@ struct SlotMachineView: View {
     let spinning: [Bool]
     var showLever: Bool = true
 
+    @State private var lightPhase = false
+
     var body: some View {
         ZStack(alignment: .trailing) {
             VStack(spacing: 0) {
                 // Marquee lights
-                HStack(spacing: 6) {
-                    ForEach(0..<11, id: \.self) { i in
+                HStack(spacing: 5) {
+                    ForEach(0..<13, id: \.self) { i in
                         Circle()
-                            .fill(i % 2 == 0 ? GameTheme.goldLight : GameTheme.gold)
-                            .frame(width: 8, height: 8)
-                            .shadow(color: GameTheme.gold.opacity(0.9), radius: 3)
+                            .fill(bulbColor(index: i))
+                            .frame(width: 9, height: 9)
+                            .shadow(color: GameTheme.gold.opacity(0.95), radius: 3)
                     }
                 }
-                .padding(.top, 10)
-                .padding(.bottom, 8)
+                .padding(.top, 12)
+                .padding(.bottom, 10)
 
                 HStack(spacing: 8) {
                     ForEach(0..<GameConfiguration.reelCount, id: \.self) { index in
@@ -91,16 +107,16 @@ struct SlotMachineView: View {
                     }
                 }
                 .padding(.horizontal, 14)
-                .padding(.bottom, 14)
+                .padding(.bottom, 16)
             }
             .background(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .fill(
                         LinearGradient(
                             colors: [
-                                Color(red: 0.35, green: 0.18, blue: 0.08),
-                                Color(red: 0.55, green: 0.35, blue: 0.08),
-                                Color(red: 0.28, green: 0.14, blue: 0.05)
+                                Color(red: 0.62, green: 0.42, blue: 0.10),
+                                Color(red: 0.42, green: 0.24, blue: 0.06),
+                                Color(red: 0.28, green: 0.14, blue: 0.04)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
@@ -108,32 +124,59 @@ struct SlotMachineView: View {
                     )
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .stroke(GameTheme.goldGradient, lineWidth: 4)
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .stroke(
+                        LinearGradient(
+                            colors: [GameTheme.goldLight, GameTheme.gold, GameTheme.goldDark],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ),
+                        lineWidth: 5
+                    )
             )
-            .shadow(color: GameTheme.gold.opacity(0.45), radius: 16)
-            .shadow(color: .black.opacity(0.4), radius: 10, y: 6)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(Color.white.opacity(0.18), lineWidth: 1)
+                    .padding(5)
+            )
+            .shadow(color: GameTheme.gold.opacity(0.55), radius: 18)
+            .shadow(color: .black.opacity(0.45), radius: 12, y: 8)
 
             if showLever {
                 VStack(spacing: 0) {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [Color.red.opacity(0.95), Color(red: 0.7, green: 0.05, blue: 0.1)],
+                                colors: [Color.red.opacity(0.98), Color(red: 0.65, green: 0.05, blue: 0.1)],
                                 startPoint: .top,
                                 endPoint: .bottom
                             )
                         )
-                        .frame(width: 22, height: 22)
-                        .shadow(color: .red.opacity(0.6), radius: 4)
+                        .frame(width: 26, height: 26)
+                        .overlay(Circle().stroke(Color.white.opacity(0.35), lineWidth: 1.5))
+                        .shadow(color: .red.opacity(0.7), radius: 5)
 
-                    RoundedRectangle(cornerRadius: 3)
+                    RoundedRectangle(cornerRadius: 4)
                         .fill(GameTheme.goldGradient)
-                        .frame(width: 8, height: 54)
+                        .frame(width: 10, height: 62)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                        )
                 }
-                .offset(x: 18, y: 8)
+                .offset(x: 20, y: 10)
             }
         }
-        .padding(.trailing, showLever ? 12 : 0)
+        .padding(.trailing, showLever ? 14 : 0)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.45).repeatForever(autoreverses: true)) {
+                lightPhase = true
+            }
+        }
+    }
+
+    private func bulbColor(index: Int) -> Color {
+        let on = ((index % 2 == 0) && lightPhase) || ((index % 2 == 1) && !lightPhase)
+        return on ? GameTheme.goldLight : GameTheme.goldDark.opacity(0.7)
     }
 }

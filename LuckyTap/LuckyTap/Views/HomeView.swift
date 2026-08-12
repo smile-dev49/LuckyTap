@@ -10,81 +10,41 @@ struct HomeView: View {
 
             VStack(spacing: 0) {
                 topBar
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
+                    .padding(.horizontal, 18)
+                    .padding(.top, 6)
 
-                Spacer(minLength: 12)
+                Spacer(minLength: 4)
 
-                LuckyTapLogo(size: 1.05)
-                    .padding(.bottom, 8)
+                // Branding hero from icon.jpg — mascot + 555 machine
+                heroArt
+                    .padding(.horizontal, 12)
 
-                // Mini 555 machine preview
-                SlotMachineView(
-                    reels: [5, 5, 5],
-                    spinning: [false, false, false],
-                    showLever: true
-                )
-                .frame(maxWidth: 320)
-                .padding(.horizontal, 28)
+                Spacer(minLength: 10)
 
-                Spacer(minLength: 20)
-
-                CasinoButton(title: "PLAY", style: .orange, fontSize: 32, verticalPadding: 18) {
+                CasinoButton(
+                    title: "PLAY",
+                    style: .orange,
+                    fontSize: 34,
+                    horizontalPadding: 28,
+                    verticalPadding: 18
+                ) {
                     path.append(AppRoute.game)
                 }
-                .padding(.horizontal, 36)
+                .padding(.horizontal, 42)
+                .neonGlow(GameTheme.orangeButtonTop, radius: 14)
 
-                Button {
-                    path.append(AppRoute.dailyReward)
-                } label: {
-                    VStack(spacing: 8) {
-                        ZStack {
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [
-                                            Color(red: 0.28, green: 0.12, blue: 0.48),
-                                            Color(red: 0.12, green: 0.05, blue: 0.28)
-                                        ],
-                                        startPoint: .top,
-                                        endPoint: .bottom
-                                    )
-                                )
-                                .frame(width: 72, height: 72)
-                                .overlay(
-                                    Circle()
-                                        .stroke(GameTheme.goldGradient, lineWidth: 2.5)
-                                )
-                                .shadow(color: GameTheme.gold.opacity(0.45), radius: 8)
+                dailyRewardButton
+                    .padding(.top, 26)
 
-                            Image(systemName: "gift.fill")
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundStyle(
-                                    LinearGradient(
-                                        colors: [GameTheme.goldLight, GameTheme.orangeButtonBottom],
-                                        startPoint: .top,
-                                        endPoint: .bottom
-                                    )
-                                )
-                        }
-
-                        Text("Daily Reward")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.9))
-                    }
-                }
-                .buttonStyle(ScalePressStyle())
-                .padding(.top, 28)
-
-                Spacer(minLength: 24)
+                Spacer(minLength: 20)
             }
         }
         .navigationBarHidden(true)
     }
 
     private var topBar: some View {
-        HStack {
-            CoinBalanceView(balance: viewModel.coinBalance)
+        HStack(spacing: 10) {
+            CoinBalanceView(balance: viewModel.coinBalance, showPlus: true)
 
             Spacer()
 
@@ -93,125 +53,123 @@ struct HomeView: View {
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 22, weight: .bold))
-                    .foregroundStyle(GameTheme.goldGradient)
-                    .frame(width: 44, height: 44)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [GameTheme.goldLight, GameTheme.gold, GameTheme.goldDark],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .frame(width: 46, height: 46)
                     .background(
                         Circle()
-                            .fill(Color.black.opacity(0.35))
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        Color(red: 0.35, green: 0.15, blue: 0.55),
+                                        Color(red: 0.12, green: 0.05, blue: 0.28)
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
                             .overlay(
                                 Circle()
-                                    .stroke(GameTheme.gold.opacity(0.6), lineWidth: 1.5)
+                                    .stroke(GameTheme.gold.opacity(0.75), lineWidth: 2)
                             )
                     )
-                    .shadow(color: GameTheme.gold.opacity(0.35), radius: 6)
+                    .shadow(color: GameTheme.gold.opacity(0.45), radius: 8)
             }
             .buttonStyle(ScalePressStyle())
             .accessibilityLabel("Settings")
         }
     }
-}
 
-// MARK: - Shared visual helpers used across screens
-
-struct VegasBackground: View {
-    var body: some View {
+    private var heroArt: some View {
         ZStack {
-            GameTheme.backgroundGradient
-                .ignoresSafeArea()
+            // Soft gold glow behind art
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(GameTheme.gold.opacity(0.12))
+                .blur(radius: 18)
+                .padding(10)
 
-            Circle()
-                .fill(GameTheme.neonPurple.opacity(0.35))
-                .frame(width: 280, height: 280)
-                .blur(radius: 60)
-                .offset(x: -120, y: -220)
+            OptionalAssetImage(name: "branding_hero") {
+                // Fallback if asset missing
+                VStack(spacing: 10) {
+                    LuckyTapLogo(size: 0.95)
+                    SlotMachineView(reels: [5, 5, 5], spinning: [false, false, false])
+                        .frame(maxWidth: 280)
+                }
+            }
+            .aspectRatio(1, contentMode: .fit)
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                GameTheme.goldLight,
+                                GameTheme.gold,
+                                GameTheme.goldDark
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 4
+                    )
+            )
+            .shadow(color: GameTheme.gold.opacity(0.55), radius: 18)
+            .shadow(color: GameTheme.neonBlue.opacity(0.35), radius: 24)
+            .padding(.horizontal, 18)
+            .frame(maxHeight: 360)
+        }
+    }
 
-            Circle()
-                .fill(GameTheme.neonBlue.opacity(0.22))
-                .frame(width: 240, height: 240)
-                .blur(radius: 50)
-                .offset(x: 140, y: -80)
+    private var dailyRewardButton: some View {
+        Button {
+            path.append(AppRoute.dailyReward)
+        } label: {
+            VStack(spacing: 10) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.42, green: 0.18, blue: 0.72),
+                                    Color(red: 0.16, green: 0.06, blue: 0.38)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .frame(width: 78, height: 78)
+                        .overlay(
+                            Circle()
+                                .stroke(GameTheme.goldGradient, lineWidth: 3)
+                        )
+                        .shadow(color: GameTheme.gold.opacity(0.55), radius: 10)
 
-            Circle()
-                .fill(GameTheme.neonPink.opacity(0.18))
-                .frame(width: 200, height: 200)
-                .blur(radius: 45)
-                .offset(x: 80, y: 260)
+                    Image(systemName: "gift.fill")
+                        .font(.system(size: 30, weight: .bold))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 1.0, green: 0.55, blue: 0.75),
+                                    Color(red: 1.0, green: 0.35, blue: 0.45)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .shadow(color: .pink.opacity(0.6), radius: 4)
+                }
 
-            VStack {
-                Spacer()
-                CitySilhouette()
-                    .fill(Color.black.opacity(0.35))
-                    .frame(height: 120)
-                    .ignoresSafeArea(edges: .bottom)
+                Text("Daily Reward")
+                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .shadow(color: .black.opacity(0.5), radius: 1, y: 1)
             }
         }
-    }
-}
-
-struct CitySilhouette: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let w = rect.width
-        let h = rect.height
-        path.move(to: CGPoint(x: 0, y: h))
-        path.addLine(to: CGPoint(x: 0, y: h * 0.55))
-        path.addLine(to: CGPoint(x: w * 0.08, y: h * 0.55))
-        path.addLine(to: CGPoint(x: w * 0.08, y: h * 0.30))
-        path.addLine(to: CGPoint(x: w * 0.16, y: h * 0.30))
-        path.addLine(to: CGPoint(x: w * 0.16, y: h * 0.48))
-        path.addLine(to: CGPoint(x: w * 0.25, y: h * 0.48))
-        path.addLine(to: CGPoint(x: w * 0.25, y: h * 0.18))
-        path.addLine(to: CGPoint(x: w * 0.34, y: h * 0.18))
-        path.addLine(to: CGPoint(x: w * 0.34, y: h * 0.42))
-        path.addLine(to: CGPoint(x: w * 0.45, y: h * 0.42))
-        path.addLine(to: CGPoint(x: w * 0.45, y: h * 0.25))
-        path.addLine(to: CGPoint(x: w * 0.55, y: h * 0.12))
-        path.addLine(to: CGPoint(x: w * 0.65, y: h * 0.25))
-        path.addLine(to: CGPoint(x: w * 0.65, y: h * 0.50))
-        path.addLine(to: CGPoint(x: w * 0.78, y: h * 0.50))
-        path.addLine(to: CGPoint(x: w * 0.78, y: h * 0.28))
-        path.addLine(to: CGPoint(x: w * 0.90, y: h * 0.28))
-        path.addLine(to: CGPoint(x: w * 0.90, y: h * 0.58))
-        path.addLine(to: CGPoint(x: w, y: h * 0.58))
-        path.addLine(to: CGPoint(x: w, y: h))
-        path.closeSubpath()
-        return path
-    }
-}
-
-struct LuckyTapLogo: View {
-    var size: CGFloat = 1.0
-
-    var body: some View {
-        VStack(spacing: -4 * size) {
-            Text("Lucky")
-                .font(.system(size: 42 * size, weight: .black, design: .rounded))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [GameTheme.goldLight, GameTheme.gold, GameTheme.orangeButtonBottom],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .shadow(color: GameTheme.neonBlue.opacity(0.7), radius: 4)
-                .shadow(color: .black.opacity(0.5), radius: 2, y: 2)
-
-            Text("Tap")
-                .font(.system(size: 48 * size, weight: .black, design: .rounded))
-                .foregroundStyle(.white)
-                .shadow(color: GameTheme.neonBlue.opacity(0.85), radius: 6)
-                .shadow(color: .black.opacity(0.45), radius: 2, y: 2)
-                .rotationEffect(.degrees(-4))
-        }
-        .overlay(alignment: .topTrailing) {
-            Image(systemName: "leaf.fill")
-                .font(.system(size: 18 * size, weight: .bold))
-                .foregroundStyle(Color.green)
-                .rotationEffect(.degrees(25))
-                .offset(x: 18 * size, y: 4 * size)
-                .shadow(color: .green.opacity(0.6), radius: 4)
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Lucky Tap")
+        .buttonStyle(ScalePressStyle())
     }
 }
