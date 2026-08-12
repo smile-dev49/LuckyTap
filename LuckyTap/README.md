@@ -15,7 +15,9 @@ Local virtual-coin slot game based on your UI design. No backend. SDK hook-up ca
 |--------|------|
 | **Home** | Branding, PLAY, shortcuts |
 | **Game** | 3-reel slots, TAP / TAP TO STOP, bet, auto |
-| **Achievements** | Daily reward (7-day) + missions |
+| **Achievements** | Lifetime badges / milestones |
+| **Daily Reward** | 7-day login streak claim |
+| **Missions** | Play tasks with coin rewards |
 | **Profile** | Level, stats, collections |
 | **Lucky Bonus** | Full-screen free spins |
 | **Spin Wheel** | Full-screen daily wheel |

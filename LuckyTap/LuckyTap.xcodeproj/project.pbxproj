@@ -16,7 +16,7 @@
 		A10000000000000000000007 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000007 /* RootView.swift */; };
 		A10000000000000000000008 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000008 /* HomeView.swift */; };
 		A10000000000000000000009 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000009 /* GameView.swift */; };
-		A1000000000000000000000A /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* RewardsView.swift */; };
+		A1000000000000000000000A /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000A /* AchievementsView.swift */; };
 		A1000000000000000000000B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000B /* ProfileView.swift */; };
 		A1000000000000000000000C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000C /* SettingsView.swift */; };
 		A1000000000000000000000D /* LuckyBonusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000000D /* LuckyBonusView.swift */; };
@@ -26,6 +26,8 @@
 		A10000000000000000000011 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* SplashView.swift */; };
 		A10000000000000000000012 /* CityBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* CityBackgroundView.swift */; };
 		A10000000000000000000013 /* HomeControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* HomeControls.swift */; };
+		A10000000000000000000014 /* DailyRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* DailyRewardView.swift */; };
+		A10000000000000000000015 /* MissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* MissionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +40,7 @@
 		B10000000000000000000007 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B10000000000000000000008 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B10000000000000000000009 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		B1000000000000000000000A /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsView.swift; sourceTree = "<group>"; };
+		B1000000000000000000000A /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		B1000000000000000000000B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B1000000000000000000000C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B1000000000000000000000D /* LuckyBonusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuckyBonusView.swift; sourceTree = "<group>"; };
@@ -49,6 +51,8 @@
 		B10000000000000000000012 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B10000000000000000000013 /* CityBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityBackgroundView.swift; sourceTree = "<group>"; };
 		B10000000000000000000014 /* HomeControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControls.swift; sourceTree = "<group>"; };
+		B10000000000000000000015 /* DailyRewardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyRewardView.swift; sourceTree = "<group>"; };
+		B10000000000000000000016 /* MissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +128,9 @@
 				B10000000000000000000007 /* RootView.swift */,
 				B10000000000000000000008 /* HomeView.swift */,
 				B10000000000000000000009 /* GameView.swift */,
-				B1000000000000000000000A /* RewardsView.swift */,
+				B1000000000000000000000A /* AchievementsView.swift */,
+				B10000000000000000000015 /* DailyRewardView.swift */,
+				B10000000000000000000016 /* MissionsView.swift */,
 				B1000000000000000000000B /* ProfileView.swift */,
 				B1000000000000000000000C /* SettingsView.swift */,
 				B1000000000000000000000D /* LuckyBonusView.swift */,
@@ -222,7 +228,9 @@
 				A10000000000000000000007 /* RootView.swift in Sources */,
 				A10000000000000000000008 /* HomeView.swift in Sources */,
 				A10000000000000000000009 /* GameView.swift in Sources */,
-				A1000000000000000000000A /* RewardsView.swift in Sources */,
+				A1000000000000000000000A /* AchievementsView.swift in Sources */,
+				A10000000000000000000014 /* DailyRewardView.swift in Sources */,
+				A10000000000000000000015 /* MissionsView.swift in Sources */,
 				A1000000000000000000000B /* ProfileView.swift in Sources */,
 				A1000000000000000000000C /* SettingsView.swift in Sources */,
 				A1000000000000000000000D /* LuckyBonusView.swift in Sources */,

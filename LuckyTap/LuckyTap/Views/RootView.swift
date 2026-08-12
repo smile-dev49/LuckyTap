@@ -2,7 +2,7 @@ import SwiftUI
 
 enum MainTab: Hashable {
     case home
-    case rewards
+    case achievements
     case profile
 }
 
@@ -13,12 +13,12 @@ struct RootView: View {
     @State private var showSettings = false
     @State private var showLuckyBonus = false
     @State private var showSpinWheel = false
-    @State private var rewardsFocusMissions = false
+    @State private var showDailyReward = false
+    @State private var showMissions = false
     @State private var showSplash = true
 
     var body: some View {
         ZStack {
-            // Same neon city background for all main tabs
             CityBackgroundView(dimOpacity: tab == .home ? 0.25 : 0.45)
 
             Group {
@@ -27,19 +27,13 @@ struct RootView: View {
                     HomeView(
                         onPlay: { showGame = true },
                         onSettings: { showSettings = true },
-                        onDailyReward: {
-                            rewardsFocusMissions = false
-                            tab = .rewards
-                        },
-                        onMissions: {
-                            rewardsFocusMissions = true
-                            tab = .rewards
-                        },
+                        onDailyReward: { showDailyReward = true },
+                        onMissions: { showMissions = true },
                         onLuckyBonus: { showLuckyBonus = true },
                         onSpinWheel: { showSpinWheel = true }
                     )
-                case .rewards:
-                    RewardsView(startOnMissions: rewardsFocusMissions)
+                case .achievements:
+                    AchievementsView()
                 case .profile:
                     ProfileView()
                 }
@@ -99,6 +93,14 @@ struct RootView: View {
             SpinWheelView(onClose: { showSpinWheel = false })
                 .environmentObject(store)
         }
+        .fullScreenCover(isPresented: $showDailyReward) {
+            DailyRewardView(onClose: { showDailyReward = false })
+                .environmentObject(store)
+        }
+        .fullScreenCover(isPresented: $showMissions) {
+            MissionsView(onClose: { showMissions = false })
+                .environmentObject(store)
+        }
     }
 }
 
@@ -108,7 +110,7 @@ struct BottomTabBar: View {
     var body: some View {
         HStack(spacing: 6) {
             tabItem(.home, title: "HOME", system: "house.fill")
-            tabItem(.rewards, title: "ACHIEVEMENTS", system: "trophy.fill")
+            tabItem(.achievements, title: "ACHIEVEMENTS", system: "trophy.fill")
             tabItem(.profile, title: "PROFILE", system: "person.fill")
         }
         .padding(.horizontal, 8)
