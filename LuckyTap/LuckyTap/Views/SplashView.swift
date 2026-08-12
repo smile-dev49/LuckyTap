@@ -12,17 +12,17 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            AppTheme.backgroundGradient.ignoresSafeArea()
+            CityBackgroundView(dimOpacity: 0.5)
 
             Circle()
-                .fill(AppTheme.gold.opacity(0.12))
+                .fill(AppTheme.gold.opacity(0.10))
                 .frame(width: 280, height: 280)
                 .blur(radius: 55)
                 .offset(y: -40)
                 .scaleEffect(glowPulse ? 1.08 : 0.94)
 
             Circle()
-                .fill(AppTheme.neonBlue.opacity(0.12))
+                .fill(AppTheme.neonBlue.opacity(0.10))
                 .frame(width: 260, height: 260)
                 .blur(radius: 50)
                 .offset(x: 80, y: 180)

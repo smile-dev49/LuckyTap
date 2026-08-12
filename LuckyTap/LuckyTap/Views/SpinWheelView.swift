@@ -15,7 +15,7 @@ struct SpinWheelView: View {
 
     var body: some View {
         ZStack {
-            AppTheme.backgroundGradient.ignoresSafeArea()
+            CityBackgroundView(dimOpacity: 0.4)
 
             VStack(spacing: 20) {
                 HStack {

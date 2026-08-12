@@ -7,8 +7,7 @@ Local virtual-coin slot game based on your UI design. No backend. SDK hook-up ca
 1. On a Mac, open `LuckyTap/LuckyTap.xcodeproj` in Xcode 15+.
 2. Select an iPhone simulator (iOS 17+).
 3. Set your Team under Signing if needed.
-4. Drop `icon.jpg` into `Assets.xcassets → AppIcon` (1024×1024).
-5. Press **Run**.
+4. Press **Run**.
 
 ## Screens
 
