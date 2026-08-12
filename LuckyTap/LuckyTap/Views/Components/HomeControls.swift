@@ -9,41 +9,33 @@ struct PlayCTAButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                // Soft outer bloom
                 Capsule()
-                    .fill(Color(red: 1.0, green: 0.55, blue: 0.05).opacity(isGlowing ? 0.45 : 0.25))
-                    .blur(radius: 16)
-                    .scaleEffect(x: 1.04, y: 1.35)
+                    .fill(Color(red: 1.0, green: 0.55, blue: 0.05).opacity(isGlowing ? 0.5 : 0.28))
+                    .blur(radius: 18)
+                    .scaleEffect(x: 1.06, y: 1.4)
 
-                // Depth plate
                 Capsule()
-                    .fill(Color(red: 0.55, green: 0.22, blue: 0.02))
-                    .offset(y: 4)
+                    .fill(Color(red: 0.5, green: 0.18, blue: 0.02))
+                    .offset(y: 5)
 
-                // Main body
                 Capsule()
                     .fill(
                         LinearGradient(
                             colors: [
-                                Color(red: 1.0, green: 0.92, blue: 0.45),
-                                Color(red: 1.0, green: 0.72, blue: 0.18),
-                                Color(red: 1.0, green: 0.48, blue: 0.05),
-                                Color(red: 0.85, green: 0.28, blue: 0.02)
+                                Color(red: 1.0, green: 0.95, blue: 0.55),
+                                Color(red: 1.0, green: 0.75, blue: 0.22),
+                                Color(red: 1.0, green: 0.48, blue: 0.06),
+                                Color(red: 0.82, green: 0.26, blue: 0.02)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
                     )
 
-                // Inner rim
                 Capsule()
                     .stroke(
                         LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.85),
-                                Color.white.opacity(0.15),
-                                AppTheme.gold.opacity(0.7)
-                            ],
+                            colors: [Color.white.opacity(0.9), Color.white.opacity(0.2), AppTheme.gold],
                             startPoint: .top,
                             endPoint: .bottom
                         ),
@@ -51,39 +43,32 @@ struct PlayCTAButton: View {
                     )
                     .padding(1)
 
-                // Glass sheen
                 Capsule()
                     .fill(
                         LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.55),
-                                Color.white.opacity(0.12),
-                                .clear
-                            ],
+                            colors: [Color.white.opacity(0.55), Color.white.opacity(0.08), .clear],
                             startPoint: .top,
-                            endPoint: UnitPoint(x: 0.5, y: 0.55)
+                            endPoint: UnitPoint(x: 0.5, y: 0.52)
                         )
                     )
-                    .padding(.horizontal, 6)
-                    .padding(.top, 4)
-                    .padding(.bottom, 28)
+                    .padding(.horizontal, 8)
+                    .padding(.top, 5)
+                    .padding(.bottom, 30)
                     .allowsHitTesting(false)
 
-                // Title
                 Text(title)
                     .font(.system(size: 28, weight: .black, design: .rounded))
                     .foregroundStyle(
                         LinearGradient(
-                            colors: [.white, Color(red: 1.0, green: 0.96, blue: 0.85)],
+                            colors: [.white, Color(red: 1.0, green: 0.97, blue: 0.88)],
                             startPoint: .top,
                             endPoint: .bottom
                         )
                     )
-                    .shadow(color: Color(red: 0.45, green: 0.15, blue: 0).opacity(0.55), radius: 1, y: 1)
-                    .shadow(color: Color.orange.opacity(0.35), radius: 6)
+                    .shadow(color: Color(red: 0.4, green: 0.12, blue: 0).opacity(0.55), radius: 1, y: 1)
             }
-            .frame(height: 64)
-            .shadow(color: Color(red: 1.0, green: 0.5, blue: 0.05).opacity(isGlowing ? 0.7 : 0.35), radius: isGlowing ? 18 : 10, y: 4)
+            .frame(height: 62)
+            .shadow(color: Color.orange.opacity(isGlowing ? 0.65 : 0.35), radius: isGlowing ? 16 : 8, y: 3)
         }
         .buttonStyle(PressableButtonStyle(scale: 0.96))
     }
@@ -96,47 +81,38 @@ struct HomeShortcutItem: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 8) {
+            VStack(spacing: 7) {
                 ZStack {
-                    // Soft glow behind tile
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(AppTheme.gold.opacity(0.18))
-                        .blur(radius: 10)
-                        .scaleEffect(1.05)
-
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(red: 0.28, green: 0.14, blue: 0.48).opacity(0.72),
-                                    Color(red: 0.10, green: 0.05, blue: 0.24).opacity(0.82)
+                                    Color(red: 0.34, green: 0.18, blue: 0.58).opacity(0.9),
+                                    Color(red: 0.12, green: 0.06, blue: 0.28).opacity(0.95)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 1.0, green: 0.93, blue: 0.55),
+                                    Color(red: 0.95, green: 0.6, blue: 0.15),
+                                    Color(red: 0.75, green: 0.45, blue: 0.95)
                                 ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
-                            )
+                            ),
+                            lineWidth: 1.6
                         )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .stroke(
-                                    LinearGradient(
-                                        colors: [
-                                            Color(red: 1.0, green: 0.92, blue: 0.55),
-                                            Color(red: 1.0, green: 0.65, blue: 0.2),
-                                            Color(red: 0.85, green: 0.55, blue: 0.95)
-                                        ],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    ),
-                                    lineWidth: 1.8
-                                )
-                        )
-                        .shadow(color: .black.opacity(0.35), radius: 8, y: 4)
 
-                    // Top glass
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .fill(
                             LinearGradient(
-                                colors: [Color.white.opacity(0.22), .clear],
+                                colors: [Color.white.opacity(0.2), .clear],
                                 startPoint: .top,
                                 endPoint: .center
                             )
@@ -144,25 +120,23 @@ struct HomeShortcutItem: View {
                         .padding(1)
 
                     Image(imageName)
+                        .renderingMode(.original)
                         .resizable()
                         .scaledToFit()
-                        .padding(10)
-                        .shadow(color: .black.opacity(0.35), radius: 4, y: 2)
+                        .frame(width: 44, height: 44)
+                        .shadow(color: .black.opacity(0.35), radius: 3, y: 2)
                 }
-                .frame(height: 72)
+                .aspectRatio(1, contentMode: .fit)
+                .shadow(color: AppTheme.gold.opacity(0.22), radius: 8, y: 3)
+                .shadow(color: .black.opacity(0.35), radius: 6, y: 3)
 
                 Text(title)
                     .font(.system(size: 10, weight: .heavy, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [Color(red: 1.0, green: 0.95, blue: 0.7), AppTheme.gold],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .shadow(color: .black.opacity(0.6), radius: 2, y: 1)
+                    .foregroundColor(Color(red: 1.0, green: 0.88, blue: 0.4))
+                    .shadow(color: .black.opacity(0.7), radius: 2, y: 1)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
+                    .minimumScaleFactor(0.85)
                     .frame(height: 26)
             }
             .frame(maxWidth: .infinity)
